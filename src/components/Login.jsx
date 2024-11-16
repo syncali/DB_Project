@@ -1,48 +1,68 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import "../components-css/Login.css";
 
 const Login = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
   const handleLogin = (e) => {
     e.preventDefault();
-    console.log('Username:', username);
-    console.log('Password:', password);
+    console.log("Email:", email);
+    console.log("Password:", password);
   };
 
   return (
-    <div className="login-form">
+    <div className="login-form auth-form">
       <h2>Login</h2>
       <form onSubmit={handleLogin}>
-        <div>
-          <label>Username</label>
+        <div className="form-floating mt-5">
           <input
-            type="text"
-            placeholder='Enter your username'
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            type="email"
+            className="form-control"
+            id="floatingInput"
+            placeholder="Enter your email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
           />
+          <label htmlFor="floatingInput">Email address</label>
         </div>
-        <div className="password-container">
-          <label>Password</label>
-          <div className="password-input-container">
-            <input
-              type={showPassword ? "text" : "password"}
-              placeholder='Enter your password'
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <i 
-              className={`fa ${showPassword ? "fa-eye" : "fa-eye-slash" }`}
-              onClick={() => setShowPassword(!showPassword)}
-            ></i>
-          </div>
+        <div className="form-floating mb-1">
+          <input
+            type={showPassword ? "text" : "password"}
+            className="form-control"
+            id="floatingPassword"
+            placeholder="Enter your password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+          <label htmlFor="floatingPassword">Password</label>
+          <i
+            className={`fa ${showPassword ? "fa-eye-slash" : "fa-eye"}`}
+            onClick={() => setShowPassword(!showPassword)}
+            style={{
+              position: "absolute",
+              top: "50%",
+              right: "1.1rem",
+              transform: "translateY(-50%)",
+              cursor: "pointer",
+              zIndex: 2,
+              fontSize: "1.1rem",
+              color: "#6c757d"
+            }}
+          ></i>
         </div>
-        <button type="button" className="btn btn-primary">Login</button>
+
+        <button type="button" className="btn btn-primary">
+          Login
+        </button>
         <div>
-          <Link to="/register" id="reg-link">Haven't Registered Yet? Go Here</Link>
+          <Link to="/register" id="reg-link">
+            Haven't Registered Yet? Go Here
+          </Link>
         </div>
       </form>
     </div>
@@ -51,4 +71,7 @@ const Login = () => {
 
 export default Login;
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"></link>
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+></link>;

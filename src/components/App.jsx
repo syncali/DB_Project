@@ -1,25 +1,30 @@
+// src/components/App.jsx
 import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import Layout from './Layout';
 import Login from './Login';
 import Register from './Register';
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Login />,
+    element: <Layout />,
+    children: [
+      {
+        path: "/",
+        element: <Login />,
+      },
+      {
+        path: "/register",
+        element: <Register />,
+      },
+      // Add more routes here
+    ],
   },
-  {
-    path: "/register",
-    element: <Register />,
-  }
 ]);
 
 const App = () => {
-  return (
-    <div className="App">
-      <RouterProvider router={router} />
-    </div>
-  );
+  return <RouterProvider router={router} />;
 };
 
 export default App;

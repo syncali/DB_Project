@@ -1,0 +1,76 @@
+/* Navbar.css */
+.custom-navbar {
+    background: blue;
+    padding: 1rem 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.navbar-logo {
+    height: 30px; /* Adjust size as needed */
+    width: auto;
+    margin-right: 10px;
+}
+
+.navbar-nav .nav-item {
+    margin: 0 1rem; /* Adjust the value to increase/decrease spacing */
+}
+
+.nav-link {
+    color: rgba(7, 5, 25, 0.909) !important;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: rgb(119, 207, 238) !important;
+}
+
+.nav-buttons .btn {
+    padding: 0.5rem 1.5rem;
+    border-radius: 20px;
+}
+
+.btn-outline-light {
+    color: rgb(21, 201, 237);
+    border-color: rgb(23, 83, 179);
+}
+
+.btn-outline-light:hover {
+    background: white;
+    color: #576b91;
+    border-color: rgb(13, 19, 93);
+}
+
+.btn-light {
+    background: white;
+    color: #1e3c72;
+    border: none;
+}
+
+.btn-light:hover {
+    background: rgba(255,255,255,0.9);
+    color: #1e3c72;
+}
+
+.navbar-toggler {
+    border-color: rgba(255,255,255,0.5);
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3e%3cpath stroke='rgba(255, 255, 255, 0.9)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+/* Expanding search form */
+.search-form {
+    transition: width 0.4s ease-in-out;
+    width: 300px;
+}
+
+.search-form:focus-within {
+    width: 400px;
+}

@@ -1,231 +1,85 @@
-body {
-    background-color: #e8e3d2;
-    background-image: url('/src/images/140cb9a839b8b63b1045b5df8a5f7c2f.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed; /* Keeps the background fixed while scrolling */
-    margin: 0; /* Remove default margin */
-    min-height: 100vh; /* Use full viewport height instead of 70vh */
-    width: 100vw; /* Ensure full viewport width */
-    padding: 1rem;
+/* Global Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: hsl(198, 1%, 29%);
-    font-family: "Ubuntu", cursive;
-    text-align: center;
-    font-size: 130%;
-    overflow-x: hidden; /* Prevent horizontal scrollbar */
 }
 
-#reg {
-    width: 100vb;
+/* Document Level Styles */
+body {
+    font-family: 'Ubuntu', sans-serif;
+    line-height: 1.6;
+    color: #333;
+    min-height: 100vh;
 }
-  
+
+/* Layout and Container Styles */
 .container {
     width: 100%;
-    height: auto;
-    min-height: 500px;
-    max-width: 500px;
-    min-width: 250px;
-    background: #f1f5f8;
-    background-image: radial-gradient(#bfc0c1 7.2%, transparent 0);
-    background-size: 25px 25px;
-    border-radius: 20px;
-    box-shadow: 4px 3px 7px 2px #00000040;
-    padding: 1rem;
-    box-sizing: border-box;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
 }
 
-.login-form {
-    width: 100%;
-    max-width: 350px; /* Reduced from 400px */
-    margin: auto;
-    padding: 1.5rem; /* Reduced padding */
-    opacity: 0.95;
-    background: white;
-    border-radius: 70px;
-    border: 10px inset rgb(28, 93, 50);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.main-content {
+    min-height: calc(100vh - 76px);
 }
 
-.login-form h2 {
-    margin-bottom: 4rem;
-    font-size: 2.5rem;
-}
-
-h2
-{
-  margin-bottom: 25px;
-}
-
-.login-form form {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start; /* Align items to left */
-    width: 100%;
-}
-
-.login-form form > div {
-    width: 100%; /* Make divs take full width */
-    margin-bottom: 1rem; /* Add space between divs */
-    text-align: left; /* Left align text */
-}
-
-.login-form label {
-    display: block;
-    text-align: left;
-    margin-bottom: 0.5rem;
-    padding-left: 0.5rem; /* Add left padding to labels */
-    font-weight: bold;
-}
-
-.login-form input {
-    width: 100%; /* Make inputs take full width */
-    padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-bottom: 0.5rem;
-}
-
-.login-form input[type="email"] {
-    width: 100%;
-    padding: 0.5rem;
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
     margin-bottom: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    font-weight: 500;
+    line-height: 1.2;
 }
 
-.login-form button {
-    margin: 3rem auto;
-    margin-top: 20px;
-    padding: 0.5rem;
-    background-color: #0b5aa9;
-    font-family: "Ubuntu";
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    align-self: center;
-    color: white; /* Make text visible on blue background */
-    width: 50%; /* Use percentage instead of rem */
+/* Utility Classes */
+.text-center { text-align: center; }
+.mt-1 { margin-top: 1rem; }
+.mt-2 { margin-top: 2rem; }
+.mb-1 { margin-bottom: 1rem; }
+.mb-2 { margin-bottom: 2rem; }
 
-}
-
-.login-form button[type="submit"] {
-    margin-top: 1rem;
-    width: 100%;
-}
-
-.login-form button:hover {
-    background-color: #5087bd;
-}
-
-.heading {
+/* Grid System */
+.row {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 1rem;
-}
-.heading h1 {
-    transform: rotate(2deg);
-    padding: 0.2rem 1.2rem;
-    border-radius: 20% 5% 20% 5%/5% 20% 25% 20%;
-    background-color: #fdcb6e;
-    font-size: 1.5rem;
+    flex-wrap: wrap;
+    margin: 0 -1rem;
 }
 
-form > div > label {
-    font-family: "Ubuntu", monospace;
-    margin-bottom: 0.5rem;
-    margin-right: 10px;
+.col {
+    flex: 1;
+    padding: 0 1rem;
 }
-  
-.form input {
-    box-sizing: border-box;
-    background-color: transparent;
-    padding: 0.7rem;
-    border-bottom-right-radius: 15px 3px;
-    border-bottom-left-radius: 3px 15px;
-    border: solid 3px transparent;
-    border-bottom: dashed 3px #fdcb6e;
-    font-family: "", cursive;
-    font-size: 1rem;
-    color: hsla(260, 2%, 25%, 0.7);
-    width: 70%;
-    margin-bottom: 20px;
-}
-  
-button {
-    padding: 0;
-    border: none;
-    font-family: "Architects Daughter", cursive;
-    text-decoration: none;
-    padding-bottom: 3px;
-    width: 50%;
-    border-radius: 5px;
-    background-color: #ffeaa7;
-}
-button span {
-    background: #f1f5f8;
-    display: block;
+
+/* Button Base Styles */
+.btn-base {
+    display: inline-block;
     padding: 0.5rem 1rem;
-    border-radius: 5px;
-    border: 2px solid hsl(198, 1%, 29%);
-}
-  
-li {
-    text-align: left;
-    position: relative;
-    padding: 0.5rem;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
-.password-input-container {
-  position: relative;
-  width: 100%;
-}
-
-.password-input-container input {
-  width: 100%;
-  padding-right: 35px; /* Space for the icon */
-}
-
-.password-input-container i {
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  cursor: pointer;
-  color: #666;
-}
-
-.password-input-container i:hover {
-  color: #333;
-}
-
-#reg-link{
-    text-align: center;
-    margin: 10px;
-    text-decoration: underline;
-    color: #0b5aa9; /* Change link color */
-    font-weight: 500; /* Make the link bold */
-    transition: color 0.3s ease-in-out; /* Smooth transition for color change */
-}
-
-#reg-link:hover {
-    color: #5087bd; /* Change color on hover */
-    margin-top: 5px;
-}
-
-/* Add to styles.css */
-main {
-    padding-top: 60px; /* Space for fixed navbar */
-}
-
-.navbar {
-    position: fixed;
-    top: 0;
+/* Form Base Styles */
+.form-control {
     width: 100%;
-    z-index: 1000;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+/* Card Base Styles */
+.card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 1rem;
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 0.5rem;
+    }
 }
