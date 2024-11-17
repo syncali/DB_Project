@@ -15,8 +15,8 @@ const Login = () => {
 
   return (
     <div className="login-form auth-form">
-      <h2>Login</h2>
-      <form onSubmit={handleLogin}>
+      <h2>Sign In</h2>
+      <form className = "l-form" onSubmit={handleLogin}>
         <div className="form-floating mt-5">
           <input
             type="email"
@@ -56,9 +56,10 @@ const Login = () => {
           ></i>
         </div>
 
-        <button type="button" className="btn btn-primary">
+        <button type="button" className="btn btn-primary w-50">
           Login
         </button>
+
         <div>
           <Link to="/register" id="reg-link">
             Haven't Registered Yet? Go Here

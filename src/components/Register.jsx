@@ -102,7 +102,7 @@ const Register = () => {
           ></i>
         </div>
 
-        <div className="form-floating mb-3">
+        <div className="form-floating mb-2">
           <input
             type="password"
             className="form-control"
@@ -116,11 +116,11 @@ const Register = () => {
           <label htmlFor="floatingConfirmPassword">Confirm Password</label>
         </div>
 
-        <button type="submit" className="btn btn-primary w-100 mb-3">
+        <button type="submit" className="btn btn-primary w-50 mb-3">
           Register
         </button>
         <div className="text-center">
-          <Link to="/" className="text-decoration-none text-muted hover-link">
+          <Link to="/" className="text-decoration-underline text-muted hover-link">
             Already have an account? Login here
           </Link>
         </div>
