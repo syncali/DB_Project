@@ -17,7 +17,7 @@ const Navbar = () => {
         <div className="collapse navbar-collapse" id="navbarsExample09">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <Link className="nav-link active" aria-current="page" to="/home">Home</Link>
+              <Link className="nav-link active" aria-current="page" to="/">Home</Link>
             </li>
             <li className="nav-item dropdown">
               <a className="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Products</a>
@@ -48,7 +48,7 @@ const Navbar = () => {
             </button>
           </form>
           <div className="nav-buttons d-flex">
-            <Link to="/" className="btn btn-dark me-2">Login</Link>
+            <Link to="/login" className="btn btn-dark me-2">Login</Link>
             <Link to="/register" className="btn btn-dark">Register</Link>
           </div>
         </div>

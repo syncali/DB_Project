@@ -176,6 +176,18 @@ const Home = () => {
           ))}
         </Slider>
       </section>
+
+      <section className="newsletter">
+        <div className="container text-center">
+          <h2>Stay Updated</h2>
+          <p>Subscribe to our newsletter for latest updates and exclusive offers</p>
+          <form className="newsletter-form">
+            <input type="email" placeholder="Enter your email" />
+            <button type="submit" className="btn btn-primary">Subscribe</button>
+          </form>
+        </div>
+      </section>
+      
     </div>
   );
 };

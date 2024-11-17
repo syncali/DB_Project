@@ -159,3 +159,49 @@
 .slick-next {
   right: -18px; /* Adjust position as needed */
 }
+
+/* Newsletter Section */
+.newsletter {
+  background: #f8f9fa;
+  padding: 4rem 0;
+}
+
+.newsletter-form {
+  max-width: 500px;
+  margin: 2rem auto;
+  display: flex;
+  gap: 1rem;
+}
+
+.newsletter-form input {
+  flex: 1;
+  padding: 1rem;
+  border: 2px solid #e1e1e1;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.newsletter-form button {
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.newsletter-form button:hover {
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .section-header h2 {
+    font-size: 2rem;
+  }
+  
+  .newsletter-form {
+    flex-direction: column;
+  }
+}
