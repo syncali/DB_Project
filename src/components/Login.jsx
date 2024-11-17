@@ -1,71 +1,77 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import "../components-css/Login.css";
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import '../components-css/Login.css';
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
   const handleLogin = (e) => {
     e.preventDefault();
-    console.log("Email:", email);
-    console.log("Password:", password);
+    console.log('Email:', email);
+    console.log('Password:', password);
   };
 
   return (
-    <div className="login-form auth-form">
-      <h2>Sign In</h2>
-      <form className = "l-form" onSubmit={handleLogin}>
-        <div className="form-floating mt-5">
-          <input
-            type="email"
-            className="form-control"
-            id="floatingInput"
-            placeholder="Enter your email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-          <label htmlFor="floatingInput">Email address</label>
-        </div>
-        <div className="form-floating mb-1">
-          <input
-            type={showPassword ? "text" : "password"}
-            className="form-control"
-            id="floatingPassword"
-            placeholder="Enter your password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-          <label htmlFor="floatingPassword">Password</label>
-          <i
-            className={`fa ${showPassword ? "fa-eye-slash" : "fa-eye"}`}
-            onClick={() => setShowPassword(!showPassword)}
-            style={{
-              position: "absolute",
-              top: "50%",
-              right: "1.1rem",
-              transform: "translateY(-50%)",
-              cursor: "pointer",
-              zIndex: 2,
-              fontSize: "1.1rem",
-              color: "#6c757d"
-            }}
-          ></i>
-        </div>
+    <div className="login-container">
+      <div className="login-form-wrapper">
+        <div className="login-form">
+          <div className="form-header">
+            <h2>Welcome Back</h2>
+            <p className="subtitle">Log in to your account</p>
+          </div>
+          
+          <form onSubmit={handleLogin}>
+            <div className="form-group">
+              <div className="input-group">
+                <i className="fas fa-envelope input-icon"></i>
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  placeholder="Email"
+                />
+              </div>
+            </div>
 
-        <button type="button" className="btn btn-primary w-50">
-          Login
-        </button>
+            <div className="form-group">
+              <div className="input-group">
+                <i className="fas fa-lock input-icon"></i>
+                <input
+                  type={showPassword ? "text" : "password"}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                  placeholder="Password"
+                />
+                <i
+                  className={`fas ${showPassword ? "fa-eye-slash" : "fa-eye"} password-toggle`}
+                  onClick={() => setShowPassword(!showPassword)}
+                ></i>
+              </div>
+            </div>
 
-        <div>
-          <Link to="/register" id="reg-link">
-            Haven't Registered Yet? Go Here
-          </Link>
+            <div className="form-footer">
+              <div className="remember-me">
+                <input type="checkbox" id="remember" />
+                <label htmlFor="remember">Remember me</label>
+              </div>
+              <a href="#" className="forgot-password">Forgot Password?</a>
+            </div>
+
+            <button type="submit" className="login-btn">
+              <span>Login</span>
+              <i className="fas fa-arrow-right"></i>
+            </button>
+
+            <div className="register-link">
+              <p>Don't have an account? <Link to="/register">Register here</Link></p>
+            </div>
+          </form>
         </div>
-      </form>
+      </div>
     </div>
   );
 };

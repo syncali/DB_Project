@@ -1,5 +1,5 @@
-/* Login.css */
-.login-container {
+/* Register.css */
+.register-container {
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -9,20 +9,18 @@
   margin-bottom: 0;
 }
 
-.login-form-wrapper {
+.register-form-wrapper {
   width: 100%;
-  max-width: 450px;
+  max-width: 600px;
   perspective: 1000px;
   margin: 2rem auto;
 }
 
-.login-form {
+.register-form {
   background: rgba(255, 255, 255, 0.98);
   padding: 3rem 2.5rem;
   border-radius: 20px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(10px);
-  transform-style: preserve-3d;
   animation: simpleAppear 0.4s ease-out;
 }
 
@@ -43,7 +41,14 @@
   font-size: 1rem;
 }
 
+.form-row {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
 .form-group {
+  flex: 1;
   margin-bottom: 1.5rem;
 }
 
@@ -94,32 +99,7 @@
   color: #1e3c72;
 }
 
-.form-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 2rem;
-}
-
-.remember-me {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.forgot-password {
-  color: #1e3c72;
-  text-decoration: none;
-  font-size: 0.9rem;
-  transition: color 0.3s ease;
-}
-
-.forgot-password:hover {
-  color: #2a5298;
-  text-decoration: underline;
-}
-
-.login-btn {
+.register-btn {
   width: 100%;
   padding: 1rem;
   background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
@@ -134,38 +114,39 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
+  margin-top: 1rem;
 }
 
-.login-btn:hover {
+.register-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(30, 60, 114, 0.3);
 }
 
-.login-btn:active {
+.register-btn:active {
   transform: translateY(0);
 }
 
-.login-btn i {
+.register-btn i {
   transition: transform 0.3s ease;
 }
 
-.login-btn:hover i {
+.register-btn:hover i {
   transform: translateX(5px);
 }
 
-.register-link {
+.login-link {
   text-align: center;
   margin-top: 2rem;
 }
 
-.register-link a {
+.login-link a {
   color: #1e3c72;
   text-decoration: none;
   font-weight: 600;
   transition: color 0.3s ease;
 }
 
-.register-link a:hover {
+.login-link a:hover {
   color: #2a5298;
   text-decoration: underline;
 }
@@ -193,11 +174,23 @@
 }
 
 @media (max-width: 480px) {
-  .login-form {
+  .register-form {
     padding: 2rem 1.5rem;
   }
   
   .form-header h2 {
     font-size: 1.8rem;
   }
+  
+  .form-row {
+    flex-direction: column;
+    gap: 0;
+  }
+}
+
+/* Add to ensure no gap with footer */
+.main-content {
+  padding-bottom: 0;
+  margin-bottom: 0;
+  min-height: auto;
 }

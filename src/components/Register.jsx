@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import "../components-css/Register.css";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -29,102 +30,104 @@ const Register = () => {
   };
 
   return (
-    <div className="login-form auth-form">
-      <h2>Register</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="form-floating mb-1 mt-4">
-          <input
-            type="text"
-            className="form-control"
-            id="floatingFirstName"
-            placeholder="Enter your first name"
-            name="firstName"
-            value={formData.firstName}
-            onChange={handleChange}
-            required
-          />
-          <label htmlFor="floatingFirstName">First Name</label>
-        </div>
+    <div className="register-container">
+      <div className="register-form-wrapper">
+        <div className="register-form">
+          <div className="form-header">
+            <h2>Create Account</h2>
+            <p className="subtitle">Join our community today</p>
+          </div>
 
-        <div className="form-floating mb-1">
-          <input
-            type="text"
-            className="form-control"
-            id="floatingLastName"
-            placeholder="Enter your last name"
-            name="lastName"
-            value={formData.lastName}
-            onChange={handleChange}
-            required
-          />
-          <label htmlFor="floatingLastName">Last Name</label>
-        </div>
+          <form onSubmit={handleSubmit}>
+            <div className="form-row">
+              <div className="form-group">
+                <div className="input-group">
+                  <i className="fas fa-user input-icon"></i>
+                  <input
+                    type="text"
+                    name="firstName"
+                    value={formData.firstName}
+                    onChange={handleChange}
+                    required
+                    placeholder="First Name"
+                  />
+                </div>
+              </div>
 
-        <div className="form-floating mb-1">
-          <input
-            type="email"
-            className="form-control"
-            id="floatingEmail"
-            placeholder="Enter your email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
-          <label htmlFor="floatingEmail">Email address</label>
-        </div>
+              <div className="form-group">
+                <div className="input-group">
+                  <i className="fas fa-user input-icon"></i>
+                  <input
+                    type="text"
+                    name="lastName"
+                    value={formData.lastName}
+                    onChange={handleChange}
+                    required
+                    placeholder="Last Name"
+                  />
+                </div>
+              </div>
+            </div>
 
-        <div className="form-floating mb-1">
-          <input
-            type={showPassword ? "text" : "password"}
-            className="form-control"
-            id="floatingPassword"
-            placeholder="Enter your password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-          />
-          <label htmlFor="floatingPassword">Password</label>
-          <i
-            className={`fa ${showPassword ? "fa-eye-slash" : "fa-eye"}`}
-            onClick={() => setShowPassword(!showPassword)}
-            style={{
-              position: "absolute",
-              top: "50%",
-              right: "1.1rem",
-              transform: "translateY(-50%)",
-              cursor: "pointer",
-              zIndex: 2,
-              fontSize: "1.1rem",
-              color: "#6c757d",
-            }}
-          ></i>
-        </div>
+            <div className="form-group">
+              <div className="input-group">
+                <i className="fas fa-envelope input-icon"></i>
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                  placeholder="Email Address"
+                />
+              </div>
+            </div>
 
-        <div className="form-floating mb-2">
-          <input
-            type="password"
-            className="form-control"
-            id="floatingConfirmPassword"
-            placeholder="Confirm your password"
-            name="confirmPassword"
-            value={formData.confirmPassword}
-            onChange={handleChange}
-            required
-          />
-          <label htmlFor="floatingConfirmPassword">Confirm Password</label>
-        </div>
+            <div className="form-group">
+              <div className="input-group">
+                <i className="fas fa-lock input-icon"></i>
+                <input
+                  type={showPassword ? "text" : "password"}
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  required
+                  placeholder="Password"
+                />
+                <i
+                  className={`fas ${showPassword ? "fa-eye-slash" : "fa-eye"} password-toggle`}
+                  onClick={() => setShowPassword(!showPassword)}
+                ></i>
+              </div>
+            </div>
 
-        <button type="submit" className="btn btn-primary w-50 mb-3">
-          Register
-        </button>
-        <div className="text-center">
-          <Link to="/" className="text-decoration-underline text-muted hover-link">
-            Already have an account? Login here
-          </Link>
+            <div className="form-group">
+              <div className="input-group">
+                <i className="fas fa-lock input-icon"></i>
+                <input
+                  type={showPassword ? "text" : "password"}
+                  name="confirmPassword"
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
+                  required
+                  placeholder="Confirm Password"
+                />
+              </div>
+            </div>
+
+            <button type="submit" className="register-btn">
+              <span>Register</span>
+              <i className="fas fa-user-plus"></i>
+            </button>
+
+            <div className="login-link">
+              <p>
+                Already have an account? <Link to="/login">Login here</Link>
+              </p>
+            </div>
+          </form>
         </div>
-      </form>
+      </div>
     </div>
   );
 };
