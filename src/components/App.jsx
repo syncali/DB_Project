@@ -7,6 +7,15 @@ import Register from './Register';
 import Home from './Home';
 import About from './About';
 import Contact from './Contact';
+import ProductDetail from './ProductDetail';
+import Cart from './Cart';
+import Checkout from './Checkout';
+import { CartProvider } from './../context/CartContext';
+import CategoryPage from './CategoryPage';
+import { AuthProvider } from './../context/AuthContext';
+import Rewards from './Rewards';
+import AdminLogin from './admin/AdminLogin';
+import AdminRoutes from './../routes/AdminRoutes';
 
 const router = createBrowserRouter([
   {
@@ -33,13 +42,47 @@ const router = createBrowserRouter([
         path: "/contact",
         element: <Contact />,
       },
+      {
+        path: "/product/:id",
+        element: <ProductDetail />,
+      },
+      {
+        path: "/cart",
+        element: <Cart />,
+      },
+      {
+        path: "/checkout",
+        element: <Checkout />,
+      },
+      {
+        path: "/products/:category",
+        element: <CategoryPage />,
+      },
+      {
+        path: "/rewards",
+        element: <Rewards />,
+      }
       // Add more routes here
     ],
   },
+  {
+    path: "/admin/login",
+    element: <AdminLogin />
+  },
+  {
+    path: "/admin/*",
+    element: <AdminRoutes />
+  }
 ]);
 
 const App = () => {
-  return <RouterProvider router={router} />;
+  return (
+    <AuthProvider>
+      <CartProvider>
+        <RouterProvider router={router} />
+      </CartProvider>
+    </AuthProvider>
+  );
 };
 
 export default App;

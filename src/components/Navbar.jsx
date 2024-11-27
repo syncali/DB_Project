@@ -1,9 +1,155 @@
 // components/NavbarCustom.jsx
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useRef, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { 
+  Avatar, 
+  Badge, 
+  Tooltip, 
+  CircularProgress,
+  Fade 
+} from '@mui/material';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import HistoryIcon from '@mui/icons-material/History';
+import StarsIcon from '@mui/icons-material/Stars';
+import LogoutIcon from '@mui/icons-material/Logout';
 import './../components-css/Navbar.css';
+import { useCart } from '../context/CartContext';
+import { useAuth } from '../context/AuthContext';
 
 const Navbar = () => {
+  const navigate = useNavigate();
+  const { cartCount } = useCart();
+  const { isLoggedIn, user, setIsLoggedIn, setUser } = useAuth();
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const dropdownRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowDropdown(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const handleLogout = async () => {
+    try {
+      setIsLoading(true);
+      
+      // First clear user session
+      await new Promise(resolve => setTimeout(resolve, 500)); // Simulated API call
+      
+      // Update states in correct order
+      setShowDropdown(false); // Close dropdown first
+      
+      // Batch state updates
+      setIsLoggedIn(false);
+      setUser(null);
+      
+      // Navigate last, after cleanup
+      setTimeout(() => {
+        navigate('/');
+      }, 100);
+
+    } catch (error) {
+      console.error('Logout failed:', error);
+      // Optional: Add error notification here
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const stringToColor = (string) => {
+    let hash = 0;
+    for (let i = 0; i < string?.length; i++) {
+      hash = string.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    let color = '#';
+    for (let i = 0; i < 3; i++) {
+      const value = (hash >> (i * 8)) & 0xFF;
+      color += `00${value.toString(16)}`.slice(-2);
+    }
+    return color;
+  };
+
+  const AuthSection = () => {
+    if (isLoggedIn) {
+      return (
+        <div className="d-flex align-items-center">
+          <Badge 
+            badgeContent={cartCount} 
+            color="error"
+            sx={{
+              marginRight: '2rem',
+              '& .MuiBadge-badge': {
+                backgroundColor: '#dc3545',
+                color: 'white',
+                fontSize: '0.75rem',
+                minWidth: '18px',
+                height: '18px'
+              }
+            }}
+          >
+            <Link to="/cart" style={{ color: 'inherit' }}>
+              <ShoppingCartIcon />
+            </Link>
+          </Badge>
+
+          <div className="user-section" ref={dropdownRef}>
+            <div className="d-flex align-items-center">
+              <span className="username me-3">{user?.firstName || 'User'}</span>
+              <Avatar
+                onClick={() => setShowDropdown(!showDropdown)}
+                className="avatar-button"
+                sx={{
+                  bgcolor: stringToColor(user?.firstName),
+                  cursor: 'pointer'
+                }}
+              >
+                {user?.firstName?.[0]?.toUpperCase() || 'U'}
+              </Avatar>
+            </div>
+            {showDropdown && (
+              <div className="user-dropdown">
+                <Link to="/profile" className="user-dropdown-item">
+                  <AccountCircleIcon className="me-2" />
+                  Profile
+                </Link>
+                <Link to="/orders" className="user-dropdown-item">
+                  <HistoryIcon className="me-2" />
+                  Orders
+                </Link>
+                <Link to="/rewards" className="user-dropdown-item">
+                  <StarsIcon className="me-2" />
+                  Rewards
+                </Link>
+                <button
+                  className="user-dropdown-item logout-button"
+                  onClick={handleLogout}
+                  disabled={isLoading}
+                >
+                  <LogoutIcon className="me-2" />
+                  {isLoading ? <CircularProgress size={16} /> : 'Logout'}
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+      );
+    }
+
+    return (
+      <div className="nav-buttons d-flex">
+        <Link to="/login" className="btn btn-dark me-3">Login</Link>
+        <Link to="/register" className="btn btn-dark me-3">Register</Link>
+      </div>
+    );
+  };
+
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary rounded" aria-label="Eleventh navbar example">
       <div className="container-fluid">
@@ -31,7 +177,8 @@ const Navbar = () => {
                 <li><Link className="dropdown-item" to="/products/gpus">Graphics Cards</Link></li>
                 <li><Link className="dropdown-item" to="/products/motherboards">Motherboards</Link></li>
                 <li><Link className="dropdown-item" to="/products/desktops">Desktops</Link></li>
-                <li><Link className="dropdown-item" to="/products/accessories">Accessories</Link></li>
+                <li><Link className="dropdown-item" to="/products/keyboards">Keyboards</Link></li>
+                {/* Add a few more relevant categories */}
               </ul>
             </li>
             <li className="nav-item">
@@ -47,10 +194,7 @@ const Navbar = () => {
               <i className="fas fa-search"></i>
             </button>
           </form>
-          <div className="nav-buttons d-flex">
-            <Link to="/login" className="btn btn-dark me-2">Login</Link>
-            <Link to="/register" className="btn btn-dark">Register</Link>
-          </div>
+          <AuthSection />
         </div>
       </div>
     </nav>
