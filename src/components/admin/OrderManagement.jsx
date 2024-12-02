@@ -1,5 +1,3 @@
-// src/components/admin/OrderManagement.jsx
-
 import React, { useState } from "react";
 
 const OrderManagement = () => {

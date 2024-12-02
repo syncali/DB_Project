@@ -1,12 +1,11 @@
-// Cart.jsx
-import React, { useState } from 'react';
-import { IconButton } from '@mui/material';
-import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
-import AddIcon from '@mui/icons-material/Add';
-import RemoveIcon from '@mui/icons-material/Remove';
-import './../components-css/Cart.css';
+import React, { useState } from "react";
+import { IconButton } from "@mui/material";
+import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
+import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
+import "./../components-css/Cart.css";
 import img1 from "./../images/product-images/product1-image/22-czone.com.pk-1540-15686-010224084552.jpg";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
   const navigate = useNavigate();
@@ -16,15 +15,15 @@ const Cart = () => {
       name: "Macbook Pro M3 Chip",
       price: "744,900",
       quantity: 1,
-      image: img1
-    }
+      image: img1,
+    },
   ]);
   const [showError, setShowError] = useState(false);
 
   const updateQuantity = (id, change) => {
-    setCartItems(prevItems => 
-      prevItems.map(item => 
-        item.id === id 
+    setCartItems((prevItems) =>
+      prevItems.map((item) =>
+        item.id === id
           ? { ...item, quantity: Math.max(1, item.quantity + change) }
           : item
       )
@@ -32,21 +31,25 @@ const Cart = () => {
   };
 
   const removeItem = (id) => {
-    setCartItems(prevItems => prevItems.filter(item => item.id !== id));
+    setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
   };
 
   const calculateTotal = () => {
-    return cartItems.reduce((total, item) => 
-      total + (parseInt(item.price.replace(/,/g, '')) * item.quantity), 0
-    ).toLocaleString();
+    return cartItems
+      .reduce(
+        (total, item) =>
+          total + parseInt(item.price.replace(/,/g, "")) * item.quantity,
+        0
+      )
+      .toLocaleString();
   };
 
   const handleCheckout = () => {
     if (cartItems.length === 0) {
       setShowError(true);
-      setTimeout(() => setShowError(false), 3000); // Hide error after 3 seconds
+      setTimeout(() => setShowError(false), 3000);
     } else {
-      navigate('/checkout');
+      navigate("/checkout");
     }
   };
 
@@ -68,7 +71,7 @@ const Cart = () => {
               <p>Looks like you haven't added anything to your cart yet.</p>
             </div>
           ) : (
-            cartItems.map(item => (
+            cartItems.map((item) => (
               <div key={item.id} className="cart-item">
                 <div className="item-image">
                   <img src={item.image} alt={item.name} />
@@ -77,14 +80,14 @@ const Cart = () => {
                   <h3>{item.name}</h3>
                   <div className="item-price">Rs. {item.price}</div>
                   <div className="quantity-controls">
-                    <IconButton 
+                    <IconButton
                       size="small"
                       onClick={() => updateQuantity(item.id, -1)}
                     >
                       <RemoveIcon />
                     </IconButton>
                     <span>{item.quantity}</span>
-                    <IconButton 
+                    <IconButton
                       size="small"
                       onClick={() => updateQuantity(item.id, 1)}
                     >
@@ -93,9 +96,12 @@ const Cart = () => {
                   </div>
                 </div>
                 <div className="item-total">
-                  Rs. {(parseInt(item.price.replace(/,/g, '')) * item.quantity).toLocaleString()}
+                  Rs.{" "}
+                  {(
+                    parseInt(item.price.replace(/,/g, "")) * item.quantity
+                  ).toLocaleString()}
                 </div>
-                <IconButton 
+                <IconButton
                   className="remove-item"
                   onClick={() => removeItem(item.id)}
                 >
@@ -105,7 +111,7 @@ const Cart = () => {
             ))
           )}
         </div>
-        
+
         <div className="cart-summary">
           <h2>Order Summary</h2>
           <div className="summary-item">
@@ -120,10 +126,7 @@ const Cart = () => {
             <span>Total</span>
             <span>Rs. {calculateTotal()}</span>
           </div>
-          <button 
-            className="checkout-btn"
-            onClick={handleCheckout}
-          >
+          <button className="checkout-btn" onClick={handleCheckout}>
             Proceed to Checkout
           </button>
         </div>

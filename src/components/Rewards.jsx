@@ -1,18 +1,17 @@
-// src/components/Rewards.jsx
-import React, { useState } from 'react';
-import { 
-  Card, 
-  Button, 
-  CircularProgress, 
-  Fade, 
-  Snackbar, 
+import React, { useState } from "react";
+import {
+  Card,
+  Button,
+  CircularProgress,
+  Fade,
+  Snackbar,
   Alert,
-  Typography 
-} from '@mui/material';
-import StarIcon from '@mui/icons-material/Star';
-import { motion } from 'framer-motion';
-import { useAuth } from '../context/AuthContext';
-import './../components-css/Rewards.css';
+  Typography,
+} from "@mui/material";
+import StarIcon from "@mui/icons-material/Star";
+import { motion } from "framer-motion";
+import { useAuth } from "../context/AuthContext";
+import "./../components-css/Rewards.css";
 
 const rewardItems = [
   {
@@ -20,56 +19,60 @@ const rewardItems = [
     name: "Premium Gaming Mouse",
     points: 5000,
     image: "https://example.com/gaming-mouse.jpg",
-    description: "High-performance gaming mouse with RGB lighting"
+    description: "High-performance gaming mouse with RGB lighting",
   },
   {
     id: 2,
     name: "Mechanical Keyboard",
     points: 8000,
     image: "https://example.com/keyboard.jpg",
-    description: "RGB mechanical keyboard with Cherry MX switches"
+    description: "RGB mechanical keyboard with Cherry MX switches",
   },
   {
     id: 3,
     name: "Gaming Headset",
     points: 6000,
     image: "https://example.com/headset.jpg",
-    description: "7.1 surround sound gaming headset"
-  }
+    description: "7.1 surround sound gaming headset",
+  },
 ];
 
 const Rewards = () => {
   const [redeemingId, setRedeemingId] = useState(null);
-  const [notification, setNotification] = useState({ show: false, message: '', type: 'success' });
+  const [notification, setNotification] = useState({
+    show: false,
+    message: "",
+    type: "success",
+  });
   const [points, setPoints] = useState(10000); // Demo points
 
   const handleRedeem = async (item) => {
     if (points < item.points) {
       setNotification({
         show: true,
-        message: 'Not enough points!',
-        type: 'error'
+        message: "Not enough points!",
+        type: "error",
       });
       return;
     }
 
     setRedeemingId(item.id);
-    
+
     try {
       // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      
-      setPoints(prev => prev - item.points);
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+
+      setPoints((prev) => prev - item.points);
       setNotification({
         show: true,
         message: `Successfully redeemed ${item.name}!`,
-        type: 'success'
+        type: "success",
       });
     } catch (error) {
       setNotification({
         show: true,
-        message: 'Failed to redeem item',
-        type: 'error'
+        message: "Failed to redeem item",
+        type: "error",
       });
     } finally {
       setRedeemingId(null);
@@ -78,19 +81,17 @@ const Rewards = () => {
 
   return (
     <div className="rewards-container">
-      <motion.div 
+      <motion.div
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         className="points-display"
       >
-        <StarIcon sx={{ color: '#FFD700', fontSize: 40 }} />
-        <Typography variant="h4">
-          {points.toLocaleString()} Points
-        </Typography>
+        <StarIcon sx={{ color: "#FFD700", fontSize: 40 }} />
+        <Typography variant="h4">{points.toLocaleString()} Points</Typography>
       </motion.div>
 
       <div className="rewards-grid">
-        {rewardItems.map(item => (
+        {rewardItems.map((item) => (
           <motion.div
             key={item.id}
             whileHover={{ scale: 1.02 }}
@@ -104,7 +105,7 @@ const Rewards = () => {
                   {item.description}
                 </Typography>
                 <div className="points-required">
-                  <StarIcon sx={{ color: '#FFD700' }} />
+                  <StarIcon sx={{ color: "#FFD700" }} />
                   <Typography>{item.points.toLocaleString()} points</Typography>
                 </div>
                 <Button
@@ -117,7 +118,7 @@ const Rewards = () => {
                   {redeemingId === item.id ? (
                     <CircularProgress size={24} color="inherit" />
                   ) : (
-                    'Redeem'
+                    "Redeem"
                   )}
                 </Button>
               </div>

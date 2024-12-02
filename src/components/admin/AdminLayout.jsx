@@ -1,12 +1,11 @@
-// src/components/admin/AdminLayout.jsx
-import React from 'react';
-import { Outlet, Link, useLocation } from 'react-router-dom';
-import { 
+import React from "react";
+import { Outlet, Link, useLocation } from "react-router-dom";
+import {
   Dashboard as DashboardIcon,
   Inventory as ProductsIcon,
   ShoppingCart as OrdersIcon,
-  Store as LogoIcon
-} from '@mui/icons-material';
+  Store as LogoIcon,
+} from "@mui/icons-material";
 
 const AdminLayout = () => {
   const location = useLocation();
@@ -23,23 +22,23 @@ const AdminLayout = () => {
           <h1>Wish Tech</h1>
         </div>
         <div className="nav-links">
-          <Link 
-            to="/admin/dashboard" 
-            className={isActive('/admin/dashboard') ? 'active' : ''}
+          <Link
+            to="/admin/dashboard"
+            className={isActive("/admin/dashboard") ? "active" : ""}
           >
             <DashboardIcon />
             <span>Dashboard</span>
           </Link>
-          <Link 
+          <Link
             to="/admin/products"
-            className={isActive('/admin/products') ? 'active' : ''}
+            className={isActive("/admin/products") ? "active" : ""}
           >
             <ProductsIcon />
             <span>Products</span>
           </Link>
-          <Link 
+          <Link
             to="/admin/orders"
-            className={isActive('/admin/orders') ? 'active' : ''}
+            className={isActive("/admin/orders") ? "active" : ""}
           >
             <OrdersIcon />
             <span>Orders</span>

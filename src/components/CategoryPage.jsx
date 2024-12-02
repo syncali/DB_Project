@@ -1,33 +1,31 @@
-// src/components/CategoryPage.jsx
-import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import { 
-  Slider, 
-  FormControlLabel, 
-  Checkbox, 
-  Radio, 
+import React, { useState, useEffect } from "react";
+import { useParams, Link } from "react-router-dom";
+import {
+  Slider,
+  FormControlLabel,
+  Checkbox,
+  Radio,
   RadioGroup,
   IconButton,
-  CircularProgress
-} from '@mui/material';
-import GridViewIcon from '@mui/icons-material/GridView';
-import ViewListIcon from '@mui/icons-material/ViewList';
-import ProductCard from './ProductCard';
-import './../components-css/CategoryPage.css';
+  CircularProgress,
+} from "@mui/material";
+import GridViewIcon from "@mui/icons-material/GridView";
+import ViewListIcon from "@mui/icons-material/ViewList";
+import ProductCard from "./ProductCard";
+import "./../components-css/CategoryPage.css";
 import img from "./../images/product-images/product1-image/22-czone.com.pk-1540-15686-010224084552.jpg";
 
 const CategoryPage = () => {
   const { category } = useParams();
-  const [viewMode, setViewMode] = useState('grid');
+  const [viewMode, setViewMode] = useState("grid");
   const [priceRange, setPriceRange] = useState([0, 1000000]);
   const [selectedBrands, setSelectedBrands] = useState([]);
-  const [sortBy, setSortBy] = useState('featured');
+  const [sortBy, setSortBy] = useState("featured");
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const brands = ['Apple', 'HP', 'Dell', 'Lenovo', 'ASUS'];
+  const brands = ["Apple", "HP", "Dell", "Lenovo", "ASUS"];
 
-  // This would come from an API/database in production
   const categoryProducts = {
     laptops: [
       {
@@ -37,12 +35,8 @@ const CategoryPage = () => {
         price: "744,900",
         image: img,
       },
-      // More products...
     ],
-    monitors: [
-      // Monitor products
-    ]
-    // Other categories...
+    monitors: [],
   };
 
   const categoryTitles = {
@@ -55,36 +49,34 @@ const CategoryPage = () => {
     gpus: "Graphics Cards",
     motherboards: "Motherboards",
     desktops: "Desktop PCs",
-    keyboards: "Keyboards"
+    keyboards: "Keyboards",
   };
 
-  // Filter and sort products
   useEffect(() => {
     setIsLoading(true);
-    let result = [...categoryProducts[category] || []];
+    let result = [...(categoryProducts[category] || [])];
 
-    // Apply brand filter
     if (selectedBrands.length > 0) {
-      result = result.filter(product => selectedBrands.includes(product.brand));
+      result = result.filter((product) =>
+        selectedBrands.includes(product.brand)
+      );
     }
 
-    // Apply price range filter
-    result = result.filter(product => {
-      const price = parseInt(product.price.replace(/,/g, ''));
+    result = result.filter((product) => {
+      const price = parseInt(product.price.replace(/,/g, ""));
       return price >= priceRange[0] && price <= priceRange[1];
     });
 
-    // Apply sorting
     result.sort((a, b) => {
-      const priceA = parseInt(a.price.replace(/,/g, ''));
-      const priceB = parseInt(b.price.replace(/,/g, ''));
+      const priceA = parseInt(a.price.replace(/,/g, ""));
+      const priceB = parseInt(b.price.replace(/,/g, ""));
 
       switch (sortBy) {
-        case 'priceLow':
+        case "priceLow":
           return priceA - priceB;
-        case 'priceHigh':
+        case "priceHigh":
           return priceB - priceA;
-        case 'newest':
+        case "newest":
           return new Date(b.date) - new Date(a.date);
         default:
           return 0;
@@ -95,25 +87,20 @@ const CategoryPage = () => {
     setIsLoading(false);
   }, [category, selectedBrands, priceRange, sortBy]);
 
-  // Handle price range change
   const handlePriceChange = (event, newValue) => {
     setPriceRange(newValue);
   };
 
-  // Handle brand selection
   const handleBrandChange = (brand) => {
-    setSelectedBrands(prev => 
-      prev.includes(brand) 
-        ? prev.filter(b => b !== brand)
-        : [...prev, brand]
+    setSelectedBrands((prev) =>
+      prev.includes(brand) ? prev.filter((b) => b !== brand) : [...prev, brand]
     );
   };
 
-  // Reset filters
   const handleResetFilters = () => {
     setSelectedBrands([]);
     setPriceRange([0, 1000000]);
-    setSortBy('featured');
+    setSortBy("featured");
   };
 
   if (isLoading) {
@@ -127,14 +114,17 @@ const CategoryPage = () => {
   return (
     <div className="category-page">
       <div className="breadcrumb">
-        <Link to="/">Home</Link> / 
+        <Link to="/">Home</Link> /
         <span className="current">{categoryTitles[category]}</span>
       </div>
 
       <div className="category-banner">
         <div className="banner-content">
           <h1>{categoryTitles[category]}</h1>
-          <p>Discover our premium selection of {categoryTitles[category].toLowerCase()}</p>
+          <p>
+            Discover our premium selection of{" "}
+            {categoryTitles[category].toLowerCase()}
+          </p>
         </div>
       </div>
 
@@ -142,10 +132,7 @@ const CategoryPage = () => {
         <aside className="filters-sidebar">
           <div className="filter-header">
             <h3>Filters</h3>
-            <button 
-              className="reset-filters"
-              onClick={handleResetFilters}
-            >
+            <button className="reset-filters" onClick={handleResetFilters}>
               Reset All
             </button>
           </div>
@@ -169,11 +156,11 @@ const CategoryPage = () => {
 
           <div className="filter-section">
             <h3>Brands</h3>
-            {brands.map(brand => (
+            {brands.map((brand) => (
               <FormControlLabel
                 key={brand}
                 control={
-                  <Checkbox 
+                  <Checkbox
                     checked={selectedBrands.includes(brand)}
                     onChange={() => handleBrandChange(brand)}
                   />
@@ -185,9 +172,20 @@ const CategoryPage = () => {
 
           <div className="filter-section">
             <h3>Availability</h3>
-            <RadioGroup value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
-              <FormControlLabel value="inStock" control={<Radio />} label="In Stock" />
-              <FormControlLabel value="outOfStock" control={<Radio />} label="Out of Stock" />
+            <RadioGroup
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value)}
+            >
+              <FormControlLabel
+                value="inStock"
+                control={<Radio />}
+                label="In Stock"
+              />
+              <FormControlLabel
+                value="outOfStock"
+                control={<Radio />}
+                label="Out of Stock"
+              />
             </RadioGroup>
           </div>
         </aside>
@@ -197,7 +195,7 @@ const CategoryPage = () => {
             <div className="results-count">
               {filteredProducts.length} products found
             </div>
-            
+
             <div className="view-controls">
               <select
                 value={sortBy}
@@ -212,14 +210,14 @@ const CategoryPage = () => {
 
               <div className="view-mode-toggle">
                 <IconButton
-                  onClick={() => setViewMode('grid')}
-                  color={viewMode === 'grid' ? 'primary' : 'default'}
+                  onClick={() => setViewMode("grid")}
+                  color={viewMode === "grid" ? "primary" : "default"}
                 >
                   <GridViewIcon />
                 </IconButton>
                 <IconButton
-                  onClick={() => setViewMode('list')}
-                  color={viewMode === 'list' ? 'primary' : 'default'}
+                  onClick={() => setViewMode("list")}
+                  color={viewMode === "list" ? "primary" : "default"}
                 >
                   <ViewListIcon />
                 </IconButton>
@@ -229,9 +227,9 @@ const CategoryPage = () => {
 
           <div className={`products-grid ${viewMode}`}>
             {filteredProducts.length > 0 ? (
-              filteredProducts.map(product => (
-                <ProductCard 
-                  key={product.id} 
+              filteredProducts.map((product) => (
+                <ProductCard
+                  key={product.id}
                   {...product}
                   viewMode={viewMode}
                 />
@@ -239,10 +237,7 @@ const CategoryPage = () => {
             ) : (
               <div className="no-results">
                 <p>No products found matching your criteria</p>
-                <button 
-                  className="reset-filters"
-                  onClick={handleResetFilters}
-                >
+                <button className="reset-filters" onClick={handleResetFilters}>
                   Reset Filters
                 </button>
               </div>

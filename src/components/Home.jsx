@@ -1,8 +1,7 @@
-// Home.jsx
 import React from "react";
-import ProductCard from './ProductCard';
+import ProductCard from "./ProductCard";
 import Slider from "react-slick";
-import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./../components-css/Home.css";
 
@@ -57,7 +56,6 @@ const products = [
     description: "High-performance GPU for Gaming",
     image: i5,
   },
-  // More products...
 ];
 
 const Home = () => {
@@ -74,23 +72,27 @@ const Home = () => {
           slidesToShow: 2,
           slidesToScroll: 1,
           infinite: true,
-          dots: true
-        }
+          dots: true,
+        },
       },
       {
         breakpoint: 600,
         settings: {
           slidesToShow: 1,
-          slidesToScroll: 1
-        }
-      }
-    ]
+          slidesToScroll: 1,
+        },
+      },
+    ],
   };
 
   return (
     <div className="home-page">
       <div className="carousel-container">
-        <div id="mainCarousel" className="carousel slide" data-bs-ride="carousel">
+        <div
+          id="mainCarousel"
+          className="carousel slide"
+          data-bs-ride="carousel"
+        >
           <div className="carousel-indicators">
             <button
               type="button"
@@ -171,7 +173,7 @@ const Home = () => {
           <h3>New Arrivals</h3>
         </div>
         <Slider {...settings} className="products-slider">
-          {products.map(product => (
+          {products.map((product) => (
             <ProductCard key={product.id} {...product} />
           ))}
         </Slider>
@@ -180,14 +182,17 @@ const Home = () => {
       <section className="newsletter">
         <div className="container text-center">
           <h2>Stay Updated</h2>
-          <p>Subscribe to our newsletter for latest updates and exclusive offers</p>
+          <p>
+            Subscribe to our newsletter for latest updates and exclusive offers
+          </p>
           <form className="newsletter-form">
             <input type="email" placeholder="Enter your email" />
-            <button type="submit" className="btn btn-primary">Subscribe</button>
+            <button type="submit" className="btn btn-primary">
+              Subscribe
+            </button>
           </form>
         </div>
       </section>
-      
     </div>
   );
 };

@@ -1,16 +1,15 @@
-/* src/components/ProductCard.css */
 .product-card {
   min-width: 250px;
   max-width: fit-content;
   background: white;
-  border-radius: 12px; /* More rounded corners */
+  border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Softer shadow */
-  transition: all 0.3s ease; /* Smooth transition */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
   margin-right: 20px;
   display: flex;
   flex-direction: column;
-  height: 100%; /* Fixed height */
+  height: 100%;
   cursor: pointer;
   margin-top: 10px;
   margin-bottom: 10px;
@@ -20,12 +19,12 @@
 
 .product-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Added glow effect */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .product-image {
   width: 100%;
-  height: 200px; /* Fixed height */
+  height: 200px;
   overflow: hidden;
   position: relative;
 }
@@ -88,14 +87,14 @@
 
 .product-name {
   margin: 0;
-  font-size: 1.1rem; /* Slightly larger font */
+  font-size: 1.1rem;
   color: #333;
-  font-weight: 600; /* Bolder font */
+  font-weight: 600;
   margin-bottom: 0.5rem;
 }
 
 .product-brand {
-  font-size: 0.9rem; /* Slightly larger font */
+  font-size: 0.9rem;
   color: #666;
   margin-bottom: 0.5rem;
 }
@@ -141,11 +140,11 @@
   .product-image {
     height: 180px;
   }
-  
+
   .product-info {
     padding: 1rem;
   }
-  
+
   .product-name {
     font-size: 1rem;
   }
@@ -236,8 +235,12 @@
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes slideUp {
