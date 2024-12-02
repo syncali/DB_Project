@@ -1,10 +1,9 @@
-// src/components/ProductCard.jsx
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useCart } from './../context/CartContext';
-import './../components-css/ProductCard.css';
-import Modal from './Modal';
-import { useAuth } from './../context/AuthContext';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useCart } from "./../context/CartContext";
+import "./../components-css/ProductCard.css";
+import Modal from "./Modal";
+import { useAuth } from "./../context/AuthContext";
 
 const ProductCard = ({ id, image, name, price, description, brand }) => {
   const navigate = useNavigate();
@@ -54,22 +53,16 @@ const ProductCard = ({ id, image, name, price, description, brand }) => {
         </div>
       </div>
 
-      <Modal 
-        isOpen={showLoginModal} 
-        onClose={() => setShowLoginModal(false)}
-      >
+      <Modal isOpen={showLoginModal} onClose={() => setShowLoginModal(false)}>
         <h3>Please Login First</h3>
         <p>You need to be logged in to add items to your cart.</p>
         <div className="modal-buttons">
-          <button 
-            className="btn-primary"
-            onClick={() => navigate('/login')}
-          >
+          <button className="btn-primary" onClick={() => navigate("/login")}>
             Login
           </button>
-          <button 
+          <button
             className="btn-secondary"
-            onClick={() => navigate('/register')}
+            onClick={() => navigate("/register")}
           >
             Register
           </button>

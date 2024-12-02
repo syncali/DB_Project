@@ -1,5 +1,4 @@
-// src/context/AuthContext.jsx
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect } from "react";
 
 const AuthContext = createContext();
 
@@ -14,38 +13,40 @@ export const AuthProvider = ({ children }) => {
       setIsLoggedIn(true);
       return true;
     } catch (error) {
-      console.error('Admin login failed:', error);
+      console.error("Admin login failed:", error);
       return false;
     }
   };
 
   const logout = async () => {
     try {
-      localStorage.removeItem('user');
+      localStorage.removeItem("user");
       sessionStorage.clear();
       setIsLoggedIn(false);
-      // Set user to default state instead of null
+
       setUser({
-        firstName: '',
-        avatar: 'U'
+        firstName: "",
+        avatar: "U",
       });
       return true;
     } catch (error) {
-      console.error('Logout error:', error);
+      console.error("Logout error:", error);
       return false;
     }
   };
 
   return (
-    <AuthContext.Provider value={{ 
-      isLoggedIn, 
-      setIsLoggedIn, 
-      user, 
-      setUser,
-      logout,
-      isAdmin,
-      adminLogin
-    }}>
+    <AuthContext.Provider
+      value={{
+        isLoggedIn,
+        setIsLoggedIn,
+        user,
+        setUser,
+        logout,
+        isAdmin,
+        adminLogin,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

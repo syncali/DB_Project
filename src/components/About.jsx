@@ -1,7 +1,6 @@
-// src/components/About.jsx
-import React from 'react';
-import './../components-css/About.css';
-import aboutImage from '../images/fab6e97a2249b08babe35d2f655540ce.jpg';
+import React from "react";
+import "./../components-css/About.css";
+import aboutImage from "../images/fab6e97a2249b08babe35d2f655540ce.jpg";
 
 const About = () => {
   return (
@@ -9,7 +8,9 @@ const About = () => {
       <div className="hero-section">
         <div className="hero-content">
           <h1 className="fade-in">About Wish Tech</h1>
-          <p className="lead fade-in-delay">Your Trusted Partner in Technology</p>
+          <p className="lead fade-in-delay">
+            Your Trusted Partner in Technology
+          </p>
           <div className="hero-separator"></div>
         </div>
       </div>
@@ -27,16 +28,25 @@ const About = () => {
             <h2 className="section-title">Our Story</h2>
             <div className="title-underline"></div>
             <p className="mt-4">
-              Founded in 2024, Wish Tech has emerged as a leading provider of premium computer hardware and technology solutions. Our journey began with a simple mission: to make high-quality technology accessible to everyone.
+              Founded in 2024, Wish Tech has emerged as a leading provider of
+              premium computer hardware and technology solutions. Our journey
+              began with a simple mission: to make high-quality technology
+              accessible to everyone.
             </p>
-            <p>
-              We pride ourselves on offering:
-            </p>
+            <p>We pride ourselves on offering:</p>
             <ul className="feature-list">
-              <li><i className="fas fa-check-circle"></i> Premium Quality Products</li>
-              <li><i className="fas fa-check-circle"></i> Expert Technical Support</li>
-              <li><i className="fas fa-check-circle"></i> Competitive Pricing</li>
-              <li><i className="fas fa-check-circle"></i> Fast & Reliable Shipping</li>
+              <li>
+                <i className="fas fa-check-circle"></i> Premium Quality Products
+              </li>
+              <li>
+                <i className="fas fa-check-circle"></i> Expert Technical Support
+              </li>
+              <li>
+                <i className="fas fa-check-circle"></i> Competitive Pricing
+              </li>
+              <li>
+                <i className="fas fa-check-circle"></i> Fast & Reliable Shipping
+              </li>
             </ul>
           </div>
         </div>
@@ -82,21 +92,29 @@ const About = () => {
               <div className="value-card">
                 <i className="fas fa-heart"></i>
                 <h3>Customer First</h3>
-                <p>Your satisfaction is our top priority. We strive to exceed your expectations.</p>
+                <p>
+                  Your satisfaction is our top priority. We strive to exceed
+                  your expectations.
+                </p>
               </div>
             </div>
             <div className="col-md-4">
               <div className="value-card">
                 <i className="fas fa-shield-alt"></i>
                 <h3>Quality Assured</h3>
-                <p>We guarantee the authenticity and quality of every product we sell.</p>
+                <p>
+                  We guarantee the authenticity and quality of every product we
+                  sell.
+                </p>
               </div>
             </div>
             <div className="col-md-4">
               <div className="value-card">
                 <i className="fas fa-sync"></i>
                 <h3>Innovation</h3>
-                <p>Constantly evolving to bring you the latest in technology.</p>
+                <p>
+                  Constantly evolving to bring you the latest in technology.
+                </p>
               </div>
             </div>
           </div>

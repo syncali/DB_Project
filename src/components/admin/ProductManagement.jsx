@@ -1,4 +1,3 @@
-// src/components/admin/ProductManagement.jsx
 import React, { useState } from "react";
 import { Table, Button, Modal, TextField, IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -15,7 +14,6 @@ const ProductManagement = () => {
   });
 
   const handleAddProduct = () => {
-    // Add product logic
     setProducts([...products, { ...productForm, id: Date.now() }]);
     setOpenModal(false);
   };
@@ -29,7 +27,7 @@ const ProductManagement = () => {
         </Button>
       </div>
 
-      <Table>{/* Product listing */}</Table>
+      <Table>{}</Table>
 
       <Modal open={openModal} onClose={() => setOpenModal(false)}>
         <div className="add-product-modal">

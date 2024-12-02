@@ -1,10 +1,9 @@
-// src/components/admin/AdminRoutes.jsx
-import React from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
-import AdminLayout from './../components/admin/AdminLayout';
-import AdminDashboard from './../components/admin/AdminDashboard';
-import AdminLogin from './../components/admin/AdminLogin';
-import { useAuth } from './../context/AuthContext';
+import React from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
+import AdminLayout from "./../components/admin/AdminLayout";
+import AdminDashboard from "./../components/admin/AdminDashboard";
+import AdminLogin from "./../components/admin/AdminLogin";
+import { useAuth } from "./../context/AuthContext";
 
 const ProtectedAdminRoute = ({ children }) => {
   const { isAdmin } = useAuth();

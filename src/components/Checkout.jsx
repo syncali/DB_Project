@@ -1,21 +1,20 @@
-// Checkout.jsx
-import React, { useState, useEffect } from 'react';
-import './../components-css/Checkout.css';
-import { 
-  TextField, 
-  RadioGroup, 
-  Radio, 
+import React, { useState, useEffect } from "react";
+import "./../components-css/Checkout.css";
+import {
+  TextField,
+  RadioGroup,
+  Radio,
   FormControlLabel,
   Stepper,
   Step,
-  StepLabel
-} from '@mui/material';
-import ReactConfetti from 'react-confetti';
-import { useNavigate } from 'react-router-dom';
+  StepLabel,
+} from "@mui/material";
+import ReactConfetti from "react-confetti";
+import { useNavigate } from "react-router-dom";
 
 const Checkout = () => {
   const [activeStep, setActiveStep] = useState(0);
-  const steps = ['Shipping', 'Payment', 'Review'];
+  const steps = ["Shipping", "Payment", "Review"];
   const [orderSuccess, setOrderSuccess] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
   const navigate = useNavigate();
@@ -25,7 +24,7 @@ const Checkout = () => {
     setShowConfetti(true);
     setTimeout(() => {
       setShowConfetti(false);
-      navigate('/');
+      navigate("/");
     }, 5000);
   };
 
@@ -79,23 +78,27 @@ const Checkout = () => {
                 <h2>Payment Method</h2>
                 <RadioGroup defaultValue="card">
                   <div className="payment-option">
-                    <FormControlLabel 
-                      value="card" 
-                      control={<Radio />} 
+                    <FormControlLabel
+                      value="card"
+                      control={<Radio />}
                       label="Credit/Debit Card"
                     />
                     <div className="payment-details">
-                      <TextField label="Card Number" variant="outlined" fullWidth />
+                      <TextField
+                        label="Card Number"
+                        variant="outlined"
+                        fullWidth
+                      />
                       <div className="card-extra">
                         <TextField label="Expiry Date" variant="outlined" />
                         <TextField label="CVV" variant="outlined" />
                       </div>
                     </div>
                   </div>
-                  <FormControlLabel 
-                    value="cod" 
-                    control={<Radio />} 
-                    label="Cash on Delivery" 
+                  <FormControlLabel
+                    value="cod"
+                    control={<Radio />}
+                    label="Cash on Delivery"
                   />
                 </RadioGroup>
               </div>
@@ -122,24 +125,24 @@ const Checkout = () => {
 
           <div className="form-buttons">
             {activeStep > 0 && (
-              <button 
+              <button
                 className="back-btn"
-                onClick={() => setActiveStep(prev => prev - 1)}
+                onClick={() => setActiveStep((prev) => prev - 1)}
               >
                 Back
               </button>
             )}
-            <button 
+            <button
               className="next-btn"
               onClick={() => {
                 if (activeStep === steps.length - 1) {
                   handlePlaceOrder();
                 } else {
-                  setActiveStep(prev => prev + 1);
+                  setActiveStep((prev) => prev + 1);
                 }
               }}
             >
-              {activeStep === steps.length - 1 ? 'Place Order' : 'Continue'}
+              {activeStep === steps.length - 1 ? "Place Order" : "Continue"}
             </button>
           </div>
         </div>

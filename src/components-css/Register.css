@@ -1,4 +1,3 @@
-/* Register.css */
 .register-container {
   min-height: 100vh;
   display: flex;
@@ -177,18 +176,17 @@
   .register-form {
     padding: 2rem 1.5rem;
   }
-  
+
   .form-header h2 {
     font-size: 1.8rem;
   }
-  
+
   .form-row {
     flex-direction: column;
     gap: 0;
   }
 }
 
-/* Add to ensure no gap with footer */
 .main-content {
   padding-bottom: 0;
   margin-bottom: 0;

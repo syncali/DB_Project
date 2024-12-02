@@ -1,13 +1,12 @@
-// src/components/Contact.jsx
-import React, { useState } from 'react';
-import './../components-css/Contact.css';
+import React, { useState } from "react";
+import "./../components-css/Contact.css";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
   });
   const [submitted, setSubmitted] = useState(false);
 
@@ -18,7 +17,7 @@ const Contact = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setSubmitted(true);
-    // Add form submission logic here
+
     setTimeout(() => setSubmitted(false), 3000);
   };
 
@@ -39,17 +38,29 @@ const Contact = () => {
               <div className="contact-card fade-in">
                 <i className="fas fa-map-marker-alt"></i>
                 <h3>Visit Us</h3>
-                <p>Shop #409, Abdullah Haroon Road,<br />Saddar, Karachi, Pakistan</p>
+                <p>
+                  Shop #409, Abdullah Haroon Road,
+                  <br />
+                  Saddar, Karachi, Pakistan
+                </p>
               </div>
               <div className="contact-card fade-in-delay">
                 <i className="fas fa-phone"></i>
                 <h3>Call Us</h3>
-                <p>+92 (345) 120-870<br />Monday - Saturday, 10AM to 6PM</p>
+                <p>
+                  +92 (345) 120-870
+                  <br />
+                  Monday - Saturday, 10AM to 6PM
+                </p>
               </div>
               <div className="contact-card fade-in-delay-2">
                 <i className="fas fa-envelope"></i>
                 <h3>Email Us</h3>
-                <p>info@wishtech.com<br />support@wishtech.com</p>
+                <p>
+                  info@wishtech.com
+                  <br />
+                  support@wishtech.com
+                </p>
               </div>
             </div>
           </div>
