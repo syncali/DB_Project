@@ -1,6 +1,9 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom"; // useNavigate instead of useHistory
+import axios from "axios"; // Importing axios
 import "../components-css/Register.css";
+
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -10,7 +13,10 @@ const Register = () => {
     password: "",
     confirmPassword: "",
   });
+
   const [showPassword, setShowPassword] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate(); // useNavigate hook for navigation
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -20,13 +26,53 @@ const Register = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (formData.password !== formData.confirmPassword) {
       alert("Passwords don't match!");
       return;
     }
-    console.log("Registration Data:", formData);
+
+    const requestBody = {
+      first_name: formData.firstName,
+      last_name: formData.lastName,
+      email: formData.email,
+      role: "customer",
+      password: formData.password,
+    };
+
+    console.log(requestBody.password);
+
+    try {
+      // Using axios to send POST request
+      const response = await axios.post(
+        `${API_BASE_URL}/api/auth/register`,
+        requestBody
+      );
+
+      if (response.status === 201) {
+        alert("Registration successful!");
+        console.log(response.data);
+        navigate("/login"); // Redirect to login page after successful registration
+      }
+    } catch (error) {
+      if (error.response) {
+        // Request made and server responded with a status code
+        setErrorMessage(
+          error.response.data.message || "An error occurred while registering"
+        );
+        console.error("Registration failed:", error.response.data);
+      } else if (error.request) {
+        // The request was made but no response was received
+        setErrorMessage("Failed to communicate with the backend.");
+        console.error("No response from server:", error.request);
+      } else {
+        // Something happened in setting up the request
+        setErrorMessage("An unexpected error occurred.");
+        console.error("Error:", error.message);
+      }
+    }
   };
 
   return (
@@ -37,6 +83,9 @@ const Register = () => {
             <h2>Create Account</h2>
             <p className="subtitle">Join our community today</p>
           </div>
+
+          {/* Displaying error message if any */}
+          {errorMessage && <p className="error-message">{errorMessage}</p>}
 
           <form onSubmit={handleSubmit}>
             <div className="form-row">
@@ -95,7 +144,9 @@ const Register = () => {
                   placeholder="Password"
                 />
                 <i
-                  className={`fas ${showPassword ? "fa-eye-slash" : "fa-eye"} password-toggle`}
+                  className={`fas ${
+                    showPassword ? "fa-eye-slash" : "fa-eye"
+                  } password-toggle`}
                   onClick={() => setShowPassword(!showPassword)}
                 ></i>
               </div>
