@@ -14,7 +14,10 @@ import CategoryPage from "./CategoryPage";
 import { AuthProvider } from "./../context/AuthContext";
 import Rewards from "./Rewards";
 import AdminLogin from "./admin/AdminLogin";
-import AdminRoutes from "./../routes/AdminRoutes";
+import AdminDashboard from "./admin/AdminDashboard";
+import ProductManagement from "./admin/ProductManagement";
+import OrderManagement from "./admin/OrderManagement";
+import OrderDetails from "./admin/OrderDetails-Admin";
 
 const router = createBrowserRouter([
   {
@@ -68,8 +71,20 @@ const router = createBrowserRouter([
     element: <AdminLogin />,
   },
   {
-    path: "/admin/*",
-    element: <AdminRoutes />,
+    path: "/admin/dashboard",
+    element: <AdminDashboard />,
+  },
+  {
+    path: "/admin/products",
+    element: <ProductManagement />,
+  },
+  {
+    path: "/admin/orders",
+    element: <OrderManagement />,
+  },
+  {
+    path: "/admin/orders/:orderId",
+    element: <OrderDetails />,
   },
 ]);
 
