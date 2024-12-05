@@ -8,12 +8,13 @@ import {
   RadioGroup,
   IconButton,
   CircularProgress,
+  Alert
 } from "@mui/material";
 import GridViewIcon from "@mui/icons-material/GridView";
 import ViewListIcon from "@mui/icons-material/ViewList";
 import ProductCard from "./ProductCard";
 import "./../components-css/CategoryPage.css";
-import img from "./../images/product-images/product1-image/22-czone.com.pk-1540-15686-010224084552.jpg";
+import { productService } from '../services/productService';
 
 const CategoryPage = () => {
   const { category } = useParams();
@@ -23,68 +24,83 @@ const CategoryPage = () => {
   const [sortBy, setSortBy] = useState("featured");
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const brands = ["Apple", "HP", "Dell", "Lenovo", "ASUS"];
-
-  const categoryProducts = {
-    laptops: [
-      {
-        id: 1,
-        name: "Macbook Pro M3",
-        brand: "Apple",
-        price: "744,900",
-        image: img,
-      },
-    ],
-    monitors: [],
-  };
-
+  // Add missing constants
   const categoryTitles = {
     laptops: "Laptops",
     storage: "Storage Devices",
-    monitors: "Monitors",
+    monitors: "Monitors", 
     processors: "Processors",
     cases: "PC Cases",
     ram: "Memory",
     gpus: "Graphics Cards",
     motherboards: "Motherboards",
     desktops: "Desktop PCs",
-    keyboards: "Keyboards",
+    keyboards: "Keyboards"
+  };
+
+  const brands = ["Apple", "HP", "Dell", "Lenovo", "ASUS", "MSI", "Razer", "Gigabyte", "ViewSonic", "Samsung"];
+
+  const categoryMapping = {
+    laptops: 1,
+    storage: 2,
+    monitors: 3,
+    processors: 4,
+    cases: 5,
+    ram: 6,
+    gpus: 7,
+    motherboards: 8,
+    desktops: 9,
+    keyboards: 10
   };
 
   useEffect(() => {
-    setIsLoading(true);
-    let result = [...(categoryProducts[category] || [])];
+    const fetchProducts = async () => {
+      setIsLoading(true);
+      setError(null);
+      try {
+        const params = {
+          category_id: categoryMapping[category],
+          min_price: priceRange[0],
+          max_price: priceRange[1],
+          availability: sortBy === "inStock" ? "in_stock" : undefined
+        };
+        
+        const response = await productService.filterProducts(params);
+        let products = response;
 
-    if (selectedBrands.length > 0) {
-      result = result.filter((product) =>
-        selectedBrands.includes(product.brand)
-      );
-    }
+        // Apply brand filter
+        if (selectedBrands.length > 0) {
+          products = products.filter(product => 
+            selectedBrands.includes(product.brand)
+          );
+        }
 
-    result = result.filter((product) => {
-      const price = parseInt(product.price.replace(/,/g, ""));
-      return price >= priceRange[0] && price <= priceRange[1];
-    });
+        // Apply sorting
+        products.sort((a, b) => {
+          switch (sortBy) {
+            case "priceLow":
+              return a.product_price - b.product_price;
+            case "priceHigh":
+              return b.product_price - a.product_price;
+            case "newest":
+              return new Date(b.created_at) - new Date(a.created_at);
+            default:
+              return 0;
+          }
+        });
 
-    result.sort((a, b) => {
-      const priceA = parseInt(a.price.replace(/,/g, ""));
-      const priceB = parseInt(b.price.replace(/,/g, ""));
-
-      switch (sortBy) {
-        case "priceLow":
-          return priceA - priceB;
-        case "priceHigh":
-          return priceB - priceA;
-        case "newest":
-          return new Date(b.date) - new Date(a.date);
-        default:
-          return 0;
+        setFilteredProducts(products);
+      } catch (err) {
+        setError(err.message);
+        console.error("Failed to fetch products:", err);
+      } finally {
+        setIsLoading(false);
       }
-    });
+    };
 
-    setFilteredProducts(result);
-    setIsLoading(false);
+    fetchProducts();
   }, [category, selectedBrands, priceRange, sortBy]);
 
   const handlePriceChange = (event, newValue) => {
@@ -108,6 +124,14 @@ const CategoryPage = () => {
       <div className="loading-container">
         <CircularProgress />
       </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <Alert severity="error" className="error-message">
+        {error}
+      </Alert>
     );
   }
 

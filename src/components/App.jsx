@@ -20,6 +20,8 @@ import OrderDetails from "./admin/OrderDetails-Admin";
 import Wishlist from "./Wishlist";
 import OrderDetailsC from "./OrderDetails-Customer";
 import Checkout from "./Checkout";
+import { WishlistProvider } from '../context/WishListContext';
+import SearchResults from "./SearchResults";
 
 const router = createBrowserRouter([
   {
@@ -74,6 +76,10 @@ const router = createBrowserRouter([
         path: "/orders",
         element: <OrderDetailsC />,
       },
+      {
+        path: "/search",
+        element: <SearchResults />,
+      },
     ],
   },
   {
@@ -101,9 +107,11 @@ const router = createBrowserRouter([
 const App = () => {
   return (
     <AuthProvider>
-      <CartProvider>
-        <RouterProvider router={router} />
-      </CartProvider>
+      <WishlistProvider>
+        <CartProvider>
+          <RouterProvider router={router} />
+        </CartProvider>
+      </WishlistProvider>
     </AuthProvider>
   );
 };

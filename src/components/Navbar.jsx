@@ -10,6 +10,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import "./../components-css/Navbar.css";
 import { useCart } from "../context/CartContext";
 import { useAuth } from "../context/AuthContext";
+import { productService } from '../services/productService';
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -18,6 +19,9 @@ const Navbar = () => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const dropdownRef = useRef(null);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
+  const [searchError, setSearchError] = useState(null);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -49,6 +53,16 @@ const Navbar = () => {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    
+    if (!searchTerm.trim()) return;
+
+    // Navigate to search results
+    navigate(`/search?q=${encodeURIComponent(searchTerm.trim())}`);
+    setSearchTerm(''); // Clear input after search
   };
 
   const stringToColor = (string) => {
@@ -244,12 +258,13 @@ const Navbar = () => {
               </Link>
             </li>
           </ul>
-          <form className="d-flex me-3 search-form" role="search">
+          <form className="d-flex me-3 ms-auto" onSubmit={handleSearch}>
             <input
               className="form-control me-2"
               type="search"
-              placeholder="Search"
-              aria-label="Search"
+              placeholder="Search products..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
             />
             <button className="btn btn-dark" type="submit">
               <i className="fas fa-search"></i>

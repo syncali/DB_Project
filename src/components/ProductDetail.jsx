@@ -1,15 +1,35 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import "./../components-css/ProductDetail.css";
 import { useNavigate } from "react-router-dom";
 import Modal from "./Modal";
 import { useCart } from "./../context/CartContext";
 import { useAuth } from "./../context/AuthContext";
+import { productService } from "../services/productService";
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite'; // Add filled heart icon
+import { useWishlist } from "./../context/WishListContext";
 
-import i1 from "./../images/product-images/product1-image/22-czone.com.pk-1540-15686-010224084552.jpg";
-import i2 from "./../images/product-images/product1-image/23-czone.com.pk-1540-15686-010224084552.jpg";
-import i3 from "./../images/product-images/product1-image/copy-20-czone.com.pk-1540-15685-010224083833.jpg";
-import i4 from "./../images/product-images/product1-image/copy-21-czone.com.pk-1540-15685-010224083833.jpg";
+import i11 from "./../images/product-images/product1-image/22-czone.com.pk-1540-15686-010224084552.jpg";
+import i12 from "./../images/product-images/product1-image/23-czone.com.pk-1540-15686-010224084552.jpg";
+import i13 from "./../images/product-images/product1-image/copy-20-czone.com.pk-1540-15685-010224083833.jpg";
+import i14 from "./../images/product-images/product1-image/copy-21-czone.com.pk-1540-15685-010224083833.jpg";
+
+import i21 from "../images/product-images/product2-image/6-czone.com.pk-1540-17301-131124112143.jpg";
+import i22 from "../images/product-images/product2-image/7-czone.com.pk-1540-17301-131124112143.jpg";
+
+import i31 from "../images/product-images/product3-image/21-czone.com.pk-1540-15929-070524072032.jpg";
+import i32 from "../images/product-images/product3-image/gpg-24-mon-vx2779-hd-pro-prdp-b01-pc-1540-15929-070524072145.jpg";
+import i33 from "../images/product-images/product3-image/gpg-24-mon-vx2779-hd-pro-prdp-lf02-pc-1540-15929-070524072145.jpg";
+
+import i41 from "../images/product-images/product4-image/52-czone.com.pk-1540-12064-210223095208.jpg";
+import i42 from "../images/product-images/product4-image/copy-71-5oiugmhl.-sl1500--1540-7478-220119104853.jpg";
+import i43 from "../images/product-images/product4-image/copy-71-jn-nzlsl.-sl1500--1540-7478-220119104853.jpg";
+import i44 from "../images/product-images/product4-image/copy-71lyjamllql.-sl1500--1540-7478-220119104853.jpg";
+
+import i51 from "../images/product-images/product5-image/6-czone.com.pk-1-1540-15343-111023080631.jpg";
+import i52 from "../images/product-images/product5-image/7-czone.com.pk-1-1540-15343-111023080631.jpg";
+import i53 from "../images/product-images/product5-image/9-czone.com.pk-1-1540-15343-111023080631.jpg";
 
 import AddShoppingCartRoundedIcon from "@mui/icons-material/AddShoppingCartRounded";
 import { Rating, Avatar, IconButton } from "@mui/material";
@@ -23,32 +43,194 @@ const ProductDetail = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const { addToCart } = useCart();
   const { isLoggedIn } = useAuth();
+  const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
   const [showLoginModal, setShowLoginModal] = useState(false);
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [product, setProduct] = useState(null);
 
-  const products = {
-    1: {
+  const handlePrevImage = () => {
+    if (product?.images) {
+      setActiveImage((prev) => 
+        prev > 0 ? prev - 1 : product.images.length - 1
+      );
+    }
+  };
+
+  const handleNextImage = () => {
+    if (product?.images) {
+      setActiveImage((prev) => 
+        prev < product.images.length - 1 ? prev + 1 : 0
+      );
+    }
+  };
+
+  // Hardcoded featured products details
+  const featuredProducts = {
+    101: {
+      id: 101,
       name: "Macbook Pro M3 Chip",
       brand: "Apple",
       price: "744,900",
       description: "Premium Laptop for Professionals",
-      image: i1,
       specs: {
         Processor: "Apple M3 Pro",
         RAM: "16GB",
         Storage: "512GB SSD",
         Display: "14-inch Liquid Retina XDR",
+        OS: "macOS Sonoma",
       },
       features: [
         "Up to 18 hours battery life",
         "8-core CPU",
         "10-core GPU",
         "16-core Neural Engine",
+        "Active cooling system",
+      ],
+      images: [
+        { id: 11, url: i11, alt: "Front view" },
+        { id: 12, url: i12, alt: "Side view" },
+        { id: 13, url: i13, alt: "Back view" },
+        { id: 14, url: i14, alt: "Detail view" },
+      ],
+    },
+    102: {
+      id: 102,
+      name: "HP Victus Gaming Laptop",
+      brand: "HP",
+      price: "199,999",
+      description: "High-performance gaming laptop",
+      specs: {
+        Processor: "AMD Ryzen 7 7840HS",
+        RAM: "16GB DDR5",
+        Storage: "1TB NVMe SSD",
+        Display: "15.6-inch FHD 144Hz",
+        GPU: "NVIDIA RTX 4060 8GB",
+      },
+      features: [
+        "144Hz Refresh Rate",
+        "RGB Backlit Keyboard",
+        "NVIDIA DLSS Support",
+        "Wi-Fi 6E",
+        "Tempest Cooling",
+      ],
+      images: [
+        { id: 21, url: i21, alt: "Front view" },
+        { id: 22, url: i22, alt: "Side view" },
+      ],
+    },
+    103: {
+      id: 103,
+      name: "ViewSonic Gaming Monitor",
+      brand: "ViewSonic",
+      price: "39,999",
+      description: "27-inch 180Hz Gaming Monitor",
+      specs: {
+        Panel: "IPS",
+        Resolution: "2560 x 1440",
+        RefreshRate: "180Hz",
+        Response: "1ms GtG",
+        HDR: "HDR400",
+      },
+      features: [
+        "180Hz Refresh Rate",
+        "1ms Response Time",
+        "AMD FreeSync Premium",
+        "99% sRGB Color Coverage",
+        "Height Adjustable Stand",
+      ],
+      images: [
+        { id: 31, url: i31, alt: "Front view" },
+        { id: 32, url: i32, alt: "Side view" },
+        { id: 33, url: i33, alt: "Side view" },
+      ],
+    },
+    104: {
+      id: 104,
+      name: "Razer DeathAdder",
+      brand: "Razer",
+      price: "6,999",
+      description: "Wired Gaming Mouse with 16,000 DPI",
+      specs: {
+        Sensor: "Optical",
+        DPI: "16,000",
+        Buttons: "8 Programmable",
+        Weight: "82g",
+        Lighting: "Razer Chroma RGB",
+      },
+      features: [
+        "16,000 DPI Optical Sensor",
+        "Ergonomic Design",
+        "Razer Chroma RGB",
+        "8 Programmable Buttons",
+        "On-board Memory",
+      ],
+      images: [
+        { id: 41, url: i41, alt: "Front view" },
+        { id: 42, url: i42, alt: "Side view" },
+        { id: 43, url: i43, alt: "Side view" },
+        { id: 44, url: i44, alt: "Side view" },
+      ],
+    },
+    105: {
+      id: 105,
+      name: "Geforce RTX 4060",
+      brand: "Nvidia",
+      price: "99,999",
+      description: "High-performance GPU for Gaming",
+      specs: {
+        VRAM: "8GB GDDR6",
+        Cores: "3072 CUDA Cores",
+        Boost: "2.46 GHz",
+        Power: "115W TDP",
+        Interface: "PCIe 4.0",
+      },
+      features: [
+        "DLSS 3.0 Support",
+        "Ray Tracing Cores",
+        "8GB GDDR6 Memory",
+        "PCIe 4.0",
+        "DirectX 12 Ultimate",
+      ],
+      images: [
+        { id: 51, url: i51, alt: "Front view" },
+        { id: 52, url: i52, alt: "Side view" },
+        { id: 53, url: i53, alt: "Back view" },
       ],
     },
   };
 
-  const product = products[id];
+  useEffect(() => {
+    const fetchProductDetails = async () => {
+      setLoading(true);
+      setError(null);
+
+      // Check if it's a featured product (ID 101-105)
+      if (parseInt(id) >= 101 && parseInt(id) <= 105) {
+        setProduct(featuredProducts[id]);
+        setLoading(false);
+        return;
+      }
+
+      // Fetch from API for other products (ID 1-50)
+      try {
+        const productData = await productService.getProductById(id);
+        setProduct(productData);
+      } catch (err) {
+        setError(err.message);
+        console.error("Failed to fetch product:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProductDetails();
+  }, [id]);
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div className="error-message">{error}</div>;
+  if (!product) return <div>Product not found</div>;
 
   const reviews = [
     {
@@ -79,10 +261,10 @@ const ProductDetail = () => {
   ];
 
   const productImages = [
-    { id: 1, url: i1, alt: "Front view" },
-    { id: 2, url: i2, alt: "Side view" },
-    { id: 3, url: i3, alt: "Back view" },
-    { id: 4, url: i4, alt: "Detail view" },
+    { id: 1, url: i11, alt: "Front view" },
+    { id: 2, url: i21, alt: "Side view" },
+    { id: 3, url: i31, alt: "Back view" },
+    { id: 4, url: i41, alt: "Detail view" },
   ];
 
   const handleMouseMove = (e) => {
@@ -105,7 +287,7 @@ const ProductDetail = () => {
         price: product.price,
         image: product.image,
         brand: product.brand,
-        description: product.description
+        description: product.description,
       });
     }
   };
@@ -124,13 +306,13 @@ const ProductDetail = () => {
                   onMouseMove={handleMouseMove}
                 >
                   <img
-                    src={productImages[activeImage].url}
-                    alt={productImages[activeImage].alt}
+                    src={product?.images[activeImage]?.url}
+                    alt={product?.images[activeImage]?.alt}
                     className="main-image"
                     style={
                       isZoomed
                         ? {
-                            transform: "scale(2)",
+                            transform: "scale(1.35)", // Changed from scale(2) to scale(1.5)
                             transformOrigin: `${mousePosition.x}% ${mousePosition.y}%`,
                           }
                         : {}
@@ -138,42 +320,27 @@ const ProductDetail = () => {
                   />
                 </div>
 
-                <div className="gallery-navigation">
-                  <IconButton
-                    onClick={() =>
-                      setActiveImage((prev) =>
-                        prev > 0 ? prev - 1 : productImages.length - 1
-                      )
-                    }
-                    className="nav-button"
-                  >
-                    <ChevronLeftIcon />
-                  </IconButton>
-
-                  <div className="thumbnails-container">
-                    {productImages.map((image, index) => (
-                      <div
-                        key={image.id}
-                        className={`thumbnail ${
-                          index === activeImage ? "active" : ""
-                        }`}
-                        onClick={() => setActiveImage(index)}
-                      >
-                        <img src={image.url} alt={image.alt} />
-                      </div>
-                    ))}
+                {product?.images.length > 1 && (
+                  <div className="gallery-navigation">
+                    <IconButton onClick={handlePrevImage} className="nav-button">
+                      <ChevronLeftIcon />
+                    </IconButton>
+                    <IconButton onClick={handleNextImage} className="nav-button">
+                      <ChevronRightIcon />
+                    </IconButton>
                   </div>
+                )}
 
-                  <IconButton
-                    onClick={() =>
-                      setActiveImage((prev) =>
-                        prev < productImages.length - 1 ? prev + 1 : 0
-                      )
-                    }
-                    className="nav-button"
-                  >
-                    <ChevronRightIcon />
-                  </IconButton>
+                <div className="thumbnails-container">
+                  {product?.images.map((image, index) => (
+                    <div
+                      key={image.id}
+                      className={`thumbnail ${index === activeImage ? 'active' : ''}`}
+                      onClick={() => setActiveImage(index)}
+                    >
+                      <img src={image.url} alt={image.alt} />
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
@@ -194,10 +361,33 @@ const ProductDetail = () => {
 
                 <div className="purchase-section">
                   <div className="price">Rs. {product.price}</div>
-                  <button className="add-to-cart-btn" onClick={handleAddToCart}>
-                    <span>Add to Cart</span>
-                    <AddShoppingCartRoundedIcon className="mui-cart" />
-                  </button>
+                  <div className="action-buttons">
+                    <button className="add-to-cart-btn" onClick={handleAddToCart}>
+                      <span>Add to Cart</span>
+                      <AddShoppingCartRoundedIcon />
+                    </button>
+                    <button 
+                      className={`wishlist-btn ${isInWishlist(product?.id) ? 'wishlisted' : ''}`}
+                      onClick={() => {
+                        if (isLoggedIn) {
+                          if (isInWishlist(product?.id)) {
+                            removeFromWishlist(product?.id);
+                          } else {
+                            addToWishlist(product);
+                          }
+                        } else {
+                          setShowLoginModal(true);
+                        }
+                      }}
+                    >
+                      <span>{isInWishlist(product?.id) ? 'Wishlisted' : 'Add to Wishlist'}</span>
+                      {isInWishlist(product?.id) ? (
+                        <FavoriteIcon className="wishlisted" />
+                      ) : (
+                        <FavoriteBorderIcon />
+                      )}
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
