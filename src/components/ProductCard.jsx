@@ -20,7 +20,16 @@ const ProductCard = ({ id, image, name, price, description, brand }) => {
     if (!isLoggedIn) {
       setShowLoginModal(true);
     } else {
-      addToCart();
+      // Pass the product object to addToCart
+      addToCart({
+        id,
+        name,
+        price,
+        image,
+        brand,
+        description,
+        quantity: 1
+      });
     }
   };
 

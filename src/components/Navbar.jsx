@@ -6,6 +6,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import HistoryIcon from "@mui/icons-material/History";
 import StarsIcon from "@mui/icons-material/Stars";
 import LogoutIcon from "@mui/icons-material/Logout";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import "./../components-css/Navbar.css";
 import { useCart } from "../context/CartContext";
 import { useAuth } from "../context/AuthContext";
@@ -102,13 +103,13 @@ const Navbar = () => {
             </div>
             {showDropdown && (
               <div className="user-dropdown">
-                <Link to="/profile" className="user-dropdown-item">
-                  <AccountCircleIcon className="me-2" />
-                  Profile
-                </Link>
                 <Link to="/orders" className="user-dropdown-item">
                   <HistoryIcon className="me-2" />
                   Orders
+                </Link>
+                <Link to="/wishlist" className="user-dropdown-item">
+                  <FavoriteIcon className="me-2" />
+                  Wishlist
                 </Link>
                 <Link to="/rewards" className="user-dropdown-item">
                   <StarsIcon className="me-2" />

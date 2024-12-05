@@ -22,10 +22,11 @@
   animation: pulseBackground 8s ease-in-out infinite;
 }
 
-.page-title {
+.page-title-admin-order {
   color: white !important;
   font-weight: 600 !important;
-  margin-bottom: 2rem !important;
+  margin-bottom: 4rem !important;
+  text-align: center !important;
 }
 
 .filters-section {

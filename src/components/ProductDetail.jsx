@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import "./../components-css/ProductDetail.css";
+import { useNavigate } from "react-router-dom";
+import Modal from "./Modal";
+import { useCart } from "./../context/CartContext";
+import { useAuth } from "./../context/AuthContext";
 
 import i1 from "./../images/product-images/product1-image/22-czone.com.pk-1540-15686-010224084552.jpg";
 import i2 from "./../images/product-images/product1-image/23-czone.com.pk-1540-15686-010224084552.jpg";
@@ -17,6 +21,10 @@ const ProductDetail = () => {
   const [activeImage, setActiveImage] = useState(0);
   const [isZoomed, setIsZoomed] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const { addToCart } = useCart();
+  const { isLoggedIn } = useAuth();
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const navigate = useNavigate();
 
   const products = {
     1: {
@@ -86,130 +94,163 @@ const ProductDetail = () => {
     }
   };
 
+  const handleAddToCart = (e) => {
+    e.stopPropagation();
+    if (!isLoggedIn) {
+      setShowLoginModal(true);
+    } else {
+      addToCart({
+        id,
+        name: product.name,
+        price: product.price,
+        image: product.image,
+        brand: product.brand,
+        description: product.description
+      });
+    }
+  };
+
   return (
-    <div className="product-detail-container">
-      <div className="container">
-        <div className="row g-4">
-          <div className="col-md-6">
-            <div className="product-gallery">
-              <div
-                className={`main-image-container ${isZoomed ? "zoomed" : ""}`}
-                onMouseEnter={() => setIsZoomed(true)}
-                onMouseLeave={() => setIsZoomed(false)}
-                onMouseMove={handleMouseMove}
-              >
-                <img
-                  src={productImages[activeImage].url}
-                  alt={productImages[activeImage].alt}
-                  className="main-image"
-                  style={
-                    isZoomed
-                      ? {
-                          transform: "scale(2)",
-                          transformOrigin: `${mousePosition.x}% ${mousePosition.y}%`,
-                        }
-                      : {}
-                  }
-                />
-              </div>
-
-              <div className="gallery-navigation">
-                <IconButton
-                  onClick={() =>
-                    setActiveImage((prev) =>
-                      prev > 0 ? prev - 1 : productImages.length - 1
-                    )
-                  }
-                  className="nav-button"
+    <>
+      <div className="product-detail-container">
+        <div className="container">
+          <div className="row g-4">
+            <div className="col-md-6">
+              <div className="product-gallery">
+                <div
+                  className={`main-image-container ${isZoomed ? "zoomed" : ""}`}
+                  onMouseEnter={() => setIsZoomed(true)}
+                  onMouseLeave={() => setIsZoomed(false)}
+                  onMouseMove={handleMouseMove}
                 >
-                  <ChevronLeftIcon />
-                </IconButton>
-
-                <div className="thumbnails-container">
-                  {productImages.map((image, index) => (
-                    <div
-                      key={image.id}
-                      className={`thumbnail ${
-                        index === activeImage ? "active" : ""
-                      }`}
-                      onClick={() => setActiveImage(index)}
-                    >
-                      <img src={image.url} alt={image.alt} />
-                    </div>
-                  ))}
+                  <img
+                    src={productImages[activeImage].url}
+                    alt={productImages[activeImage].alt}
+                    className="main-image"
+                    style={
+                      isZoomed
+                        ? {
+                            transform: "scale(2)",
+                            transformOrigin: `${mousePosition.x}% ${mousePosition.y}%`,
+                          }
+                        : {}
+                    }
+                  />
                 </div>
 
-                <IconButton
-                  onClick={() =>
-                    setActiveImage((prev) =>
-                      prev < productImages.length - 1 ? prev + 1 : 0
-                    )
-                  }
-                  className="nav-button"
-                >
-                  <ChevronRightIcon />
-                </IconButton>
-              </div>
-            </div>
-          </div>
-          <div className="col-md-6">
-            <div className="product-info">
-              <h1>{product.name}</h1>
-              <div className="brand">{product.brand}</div>
-              <p className="description">{product.description}</p>
+                <div className="gallery-navigation">
+                  <IconButton
+                    onClick={() =>
+                      setActiveImage((prev) =>
+                        prev > 0 ? prev - 1 : productImages.length - 1
+                      )
+                    }
+                    className="nav-button"
+                  >
+                    <ChevronLeftIcon />
+                  </IconButton>
 
-              <div className="features-section">
-                <h3>Key Features</h3>
-                <ul className="features-list">
-                  {product.features.map((feature, index) => (
-                    <li key={index}>{feature}</li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="purchase-section">
-                <div className="price">Rs. {product.price}</div>
-                <button className="add-to-cart-btn">
-                  <span>Add to Cart</span>
-                  <AddShoppingCartRoundedIcon className="mui-cart" />
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="specs-container mt-5">
-          <h3>Technical Specifications</h3>
-          <div className="specs-grid">
-            {Object.entries(product.specs).map(([key, value]) => (
-              <div key={key} className="spec-item">
-                <span className="spec-label">{key}</span>
-                <span className="spec-value">{value}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="reviews-section mt-4">
-          <h3>Customer Reviews</h3>
-          <div className="reviews-grid">
-            {reviews.map((review) => (
-              <div key={review.id} className="review-card">
-                <div className="review-header">
-                  <Avatar className="review-avatar">{review.avatar}</Avatar>
-                  <div className="review-meta">
-                    <h4>{review.name}</h4>
-                    <Rating value={review.rating} readOnly precision={0.5} />
-                    <span className="review-date">{review.date}</span>
+                  <div className="thumbnails-container">
+                    {productImages.map((image, index) => (
+                      <div
+                        key={image.id}
+                        className={`thumbnail ${
+                          index === activeImage ? "active" : ""
+                        }`}
+                        onClick={() => setActiveImage(index)}
+                      >
+                        <img src={image.url} alt={image.alt} />
+                      </div>
+                    ))}
                   </div>
+
+                  <IconButton
+                    onClick={() =>
+                      setActiveImage((prev) =>
+                        prev < productImages.length - 1 ? prev + 1 : 0
+                      )
+                    }
+                    className="nav-button"
+                  >
+                    <ChevronRightIcon />
+                  </IconButton>
                 </div>
-                <p className="review-comment">{review.comment}</p>
               </div>
-            ))}
+            </div>
+            <div className="col-md-6">
+              <div className="product-info">
+                <h1>{product.name}</h1>
+                <div className="brand">{product.brand}</div>
+                <p className="description">{product.description}</p>
+
+                <div className="features-section">
+                  <h3>Key Features</h3>
+                  <ul className="features-list">
+                    {product.features.map((feature, index) => (
+                      <li key={index}>{feature}</li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="purchase-section">
+                  <div className="price">Rs. {product.price}</div>
+                  <button className="add-to-cart-btn" onClick={handleAddToCart}>
+                    <span>Add to Cart</span>
+                    <AddShoppingCartRoundedIcon className="mui-cart" />
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="specs-container mt-5">
+            <h3>Technical Specifications</h3>
+            <div className="specs-grid">
+              {Object.entries(product.specs).map(([key, value]) => (
+                <div key={key} className="spec-item">
+                  <span className="spec-label">{key}</span>
+                  <span className="spec-value">{value}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="reviews-section mt-4">
+            <h3>Customer Reviews</h3>
+            <div className="reviews-grid">
+              {reviews.map((review) => (
+                <div key={review.id} className="review-card">
+                  <div className="review-header">
+                    <Avatar className="review-avatar">{review.avatar}</Avatar>
+                    <div className="review-meta">
+                      <h4>{review.name}</h4>
+                      <Rating value={review.rating} readOnly precision={0.5} />
+                      <span className="review-date">{review.date}</span>
+                    </div>
+                  </div>
+                  <p className="review-comment">{review.comment}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+      <Modal isOpen={showLoginModal} onClose={() => setShowLoginModal(false)}>
+        <h3>Please Login First</h3>
+        <p>You need to be logged in to add items to your cart.</p>
+        <div className="modal-buttons">
+          <button className="btn-primary" onClick={() => navigate("/login")}>
+            Login
+          </button>
+          <button
+            className="btn-secondary"
+            onClick={() => navigate("/register")}
+          >
+            Register
+          </button>
+        </div>
+      </Modal>
+    </>
   );
 };
 
