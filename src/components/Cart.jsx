@@ -1,48 +1,17 @@
 import React, { useState } from "react";
 import { IconButton } from "@mui/material";
-import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
-import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
+import AddIcon from "@mui/icons-material/Add";
+import DeleteIcon from "@mui/icons-material/Delete";
 import "./../components-css/Cart.css";
 import img1 from "./../images/product-images/product1-image/22-czone.com.pk-1540-15686-010224084552.jpg";
 import { useNavigate } from "react-router-dom";
+import { useCart } from "./../context/CartContext";
 
 const Cart = () => {
   const navigate = useNavigate();
-  const [cartItems, setCartItems] = useState([
-    {
-      id: 1,
-      name: "Macbook Pro M3 Chip",
-      price: "744,900",
-      quantity: 1,
-      image: img1,
-    },
-  ]);
+  const { cartItems, removeFromCart, updateQuantity, cartTotal } = useCart();
   const [showError, setShowError] = useState(false);
-
-  const updateQuantity = (id, change) => {
-    setCartItems((prevItems) =>
-      prevItems.map((item) =>
-        item.id === id
-          ? { ...item, quantity: Math.max(1, item.quantity + change) }
-          : item
-      )
-    );
-  };
-
-  const removeItem = (id) => {
-    setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
-  };
-
-  const calculateTotal = () => {
-    return cartItems
-      .reduce(
-        (total, item) =>
-          total + parseInt(item.price.replace(/,/g, "")) * item.quantity,
-        0
-      )
-      .toLocaleString();
-  };
 
   const handleCheckout = () => {
     if (cartItems.length === 0) {
@@ -56,7 +25,7 @@ const Cart = () => {
   return (
     <div className="cart-container">
       {showError && (
-        <div className="error-banner">
+        <div className="cart-error-banner">
           <i className="fas fa-exclamation-circle"></i>
           Cannot proceed to checkout with an empty cart
         </div>
@@ -65,7 +34,7 @@ const Cart = () => {
       <div className="cart-content">
         <div className="cart-items">
           {cartItems.length === 0 ? (
-            <div className="empty-cart">
+            <div className="cart-empty">
               <i className="fas fa-shopping-cart"></i>
               <h2>Your cart is empty</h2>
               <p>Looks like you haven't added anything to your cart yet.</p>
@@ -73,16 +42,17 @@ const Cart = () => {
           ) : (
             cartItems.map((item) => (
               <div key={item.id} className="cart-item">
-                <div className="item-image">
+                <div className="cart-item-image">
                   <img src={item.image} alt={item.name} />
                 </div>
-                <div className="item-details">
+                <div className="cart-item-details">
                   <h3>{item.name}</h3>
-                  <div className="item-price">Rs. {item.price}</div>
-                  <div className="quantity-controls">
+                  <div className="cart-item-price">Rs. {item.price}</div>
+                  <div className="cart-quantity-controls">
                     <IconButton
                       size="small"
                       onClick={() => updateQuantity(item.id, -1)}
+                      className="cart-remove-icon"
                     >
                       <RemoveIcon />
                     </IconButton>
@@ -90,43 +60,33 @@ const Cart = () => {
                     <IconButton
                       size="small"
                       onClick={() => updateQuantity(item.id, 1)}
+                      className="cart-add-icon"
                     >
                       <AddIcon />
                     </IconButton>
                   </div>
+                  <div className="cart-item-total">
+                    Rs. {(parseInt(item.price.replace(/,/g, "")) * item.quantity).toLocaleString()}
+                  </div>
+                  <IconButton
+                    size="small"
+                    className="cart-remove-item"
+                    onClick={() => removeFromCart(item.id)}
+                  >
+                    <DeleteIcon />
+                  </IconButton>
                 </div>
-                <div className="item-total">
-                  Rs.{" "}
-                  {(
-                    parseInt(item.price.replace(/,/g, "")) * item.quantity
-                  ).toLocaleString()}
-                </div>
-                <IconButton
-                  className="remove-item"
-                  onClick={() => removeItem(item.id)}
-                >
-                  <DeleteOutlinedIcon />
-                </IconButton>
               </div>
             ))
           )}
         </div>
-
         <div className="cart-summary">
           <h2>Order Summary</h2>
-          <div className="summary-item">
-            <span>Subtotal</span>
-            <span>Rs. {calculateTotal()}</span>
-          </div>
-          <div className="summary-item">
-            <span>Shipping</span>
-            <span>Free</span>
-          </div>
-          <div className="summary-total">
+          <div className="cart-summary-item">
             <span>Total</span>
-            <span>Rs. {calculateTotal()}</span>
+            <span>Rs. {cartTotal}</span>
           </div>
-          <button className="checkout-btn" onClick={handleCheckout}>
+          <button className="cart-checkout-btn" onClick={handleCheckout}>
             Proceed to Checkout
           </button>
         </div>

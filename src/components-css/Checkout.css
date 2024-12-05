@@ -10,8 +10,9 @@
   gap: 2rem;
 }
 
+/* In src/components-css/Checkout.css */
 .checkout-main {
-  background: white;
+  background: #f8f9fa; /* Change this to your desired color */
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 2rem;
@@ -24,7 +25,8 @@
 .form-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
 }
 
 .form-grid .MuiTextField-root {
@@ -39,8 +41,10 @@
 }
 
 .payment-details {
-  margin-left: 2rem;
-  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin: 1rem 0;
 }
 
 .card-extra {
@@ -52,7 +56,8 @@
 
 .form-buttons {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
+  gap: 1rem;
   margin-top: 2rem;
   padding-top: 2rem;
   border-top: 1px solid #eee;
@@ -60,16 +65,17 @@
 
 .back-btn,
 .next-btn {
-  padding: 0.8rem 2rem;
-  border-radius: 8px;
-  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border-radius: 25px;
+  font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
 .back-btn {
-  background: white;
-  border: 1px solid #ccc;
+  background: transparent;
+  border: 2px solid #1e3c72;
+  color: #1e3c72;
 }
 
 .next-btn {
@@ -80,7 +86,11 @@
 
 .next-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(30, 60, 114, 0.3);
+  box-shadow: 0 4px 12px rgba(30, 60, 114, 0.2);
+}
+
+.back-btn:hover {
+  background: rgba(30, 60, 114, 0.05);
 }
 
 .order-summary {
@@ -88,6 +98,7 @@
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 1.5rem;
+  padding-bottom: 3rem;
   height: fit-content;
   position: sticky;
   top: 2rem;
@@ -197,6 +208,13 @@
   }
 }
 
+.shipping-form > h2 {
+  margin-bottom: 2rem;
+  color: #1e3c72;
+  font-size: 1.5rem;
+  padding-bottom: 20px;
+}
+
 @keyframes scaleIn {
   from {
     transform: scale(0);
@@ -220,4 +238,68 @@
   60% {
     transform: translateY(-10px);
   }
+}
+
+.checkout-form {
+  padding: 2rem;
+}
+
+/* Fix label visibility and styling */
+.MuiInputLabel-root {
+  color: #1e3c72 !important;
+  font-weight: 500 !important;
+}
+
+/* For input fields background */
+.MuiOutlinedInput-root {
+  background-color: #ffffff !important;
+  border-radius: 8px !important;
+}
+
+.MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+  border-color: #1e3c72 !important;
+}
+
+.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: #1e3c72 !important;
+  border-width: 2px !important;
+}
+
+.MuiInputLabel-outlined.Mui-focused {
+  color: #1e3c72 !important;
+}
+
+.MuiOutlinedInput-input::placeholder {
+  color: #757575 !important;
+  opacity: 1 !important;
+}
+
+/* Error states */
+.MuiFormHelperText-root.Mui-error {
+  color: #d32f2f !important;
+  margin-top: 4px !important;
+}
+
+/* Form section headers */
+.checkout-form h2 {
+  color: #1e3c72;
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.MuiOutlinedInput-root input {
+  color: #29303e !important;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif !important;
+}
+
+/* In src/components-css/Checkout.css */
+.payment-section {
+  margin-right: 2rem;
+}
+
+/* Ensure consistent width for payment inputs */
+.payment-details .MuiTextField-root {
+  width: 100%;
 }

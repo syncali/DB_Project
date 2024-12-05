@@ -1,0 +1,143 @@
+/* src/components-css/OrderDetails-Customer.css */
+.order-history-page {
+  min-height: 100vh;
+  background: #f8f9fa;
+  padding: 2.5rem;
+}
+
+.content-wrapper {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.page-title {
+  color: #1e3c72 !important;
+  font-weight: 600 !important;
+  margin-bottom: 2rem !important;
+  text-align: center;
+}
+
+.filter-section {
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.orders-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.order-card {
+  padding: 1.5rem !important;
+  border-radius: 12px !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+}
+
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+}
+
+.order-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.order-id,
+.order-date {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #666;
+}
+
+.order-id svg,
+.order-date svg {
+  font-size: 1.25rem;
+  color: #1e3c72;
+}
+
+.order-total {
+  margin: 1.5rem 0;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.order-timeline {
+  margin: 2rem 0;
+  padding: 0 1rem;
+}
+
+.timeline-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding-bottom: 1.5rem;
+  position: relative;
+}
+
+.timeline-item:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  left: 12px;
+  top: 24px;
+  bottom: 0;
+  width: 2px;
+  background: #eee;
+}
+
+.timeline-icon {
+  background: white;
+  padding: 4px;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.timeline-content {
+  flex: 1;
+}
+
+.expand-button {
+  width: 100%;
+  transition: transform 0.3s ease !important;
+}
+
+.order-details {
+  padding-top: 1rem;
+  border-top: 1px solid #eee;
+}
+
+.order-item {
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+}
+
+.item-details {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.5rem;
+  color: #666;
+}
+
+@media (max-width: 600px) {
+  .order-history-page {
+    padding: 1.5rem;
+  }
+
+  .order-header {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .order-timeline {
+    padding: 0;
+  }
+}

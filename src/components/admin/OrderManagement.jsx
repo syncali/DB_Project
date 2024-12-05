@@ -104,7 +104,7 @@ const OrderManagement = () => {
 
   return (
     <Box className="order-management">
-      <Typography variant="h4" className="page-title">
+      <Typography variant="h4" className="page-title-admin-order">
         Order Management
       </Typography>
 

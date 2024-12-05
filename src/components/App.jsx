@@ -8,7 +8,6 @@ import About from "./About";
 import Contact from "./Contact";
 import ProductDetail from "./ProductDetail";
 import Cart from "./Cart";
-import Checkout from "./Checkout";
 import { CartProvider } from "./../context/CartContext";
 import CategoryPage from "./CategoryPage";
 import { AuthProvider } from "./../context/AuthContext";
@@ -18,6 +17,9 @@ import AdminDashboard from "./admin/AdminDashboard";
 import ProductManagement from "./admin/ProductManagement";
 import OrderManagement from "./admin/OrderManagement";
 import OrderDetails from "./admin/OrderDetails-Admin";
+import Wishlist from "./Wishlist";
+import OrderDetailsC from "./OrderDetails-Customer";
+import Checkout from "./Checkout";
 
 const router = createBrowserRouter([
   {
@@ -63,6 +65,14 @@ const router = createBrowserRouter([
       {
         path: "/rewards",
         element: <Rewards />,
+      },
+      {
+        path: "/wishlist",
+        element: <Wishlist />,
+      },
+      {
+        path: "/orders",
+        element: <OrderDetailsC />,
       },
     ],
   },
