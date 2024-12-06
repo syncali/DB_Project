@@ -79,7 +79,7 @@ Follow these instructions to set up the project locally.
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/syncali/ecommerce-frontend.git
+   git clone https://github.com/syncali/DB_Project.git
    ```
 
 2. **Navigate to the project directory**
