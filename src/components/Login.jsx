@@ -1,18 +1,17 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom"; // useNavigate for navigation
-import axios from "axios"; // Importing axios
+import axiosInstance from "../utils/axiosInstance"; // Using Axios instance
 import "../components-css/Login.css";
 import { useAuth } from "./../context/AuthContext";
-
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const {setIsLoggedIn} = useAuth();
+  const { setIsLoggedIn } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const navigate = useNavigate(); // useNavigate for redirection
+  const [successMessage, setSuccessMessage] = useState(""); // New state for success message
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -24,32 +23,37 @@ const Login = () => {
 
     try {
       // Sending POST request to the backend
-      const response = await axios.post(
-        `${API_BASE_URL}/api/auth/login`,
-        requestBody
-      );
+      const response = await axiosInstance.post(`/api/auth/login`, requestBody);
 
       if (response.status === 200) {
-        // Assuming response contains the user data or token after successful login
-        alert("Login successful!");
-        console.log(response.data);
-        // Redirecting the user to the dashboard or home page after successful login
-        navigate("/");
+        const { accessToken, refreshToken } = response.data;
+
+        // Store tokens securely
+        localStorage.setItem("accessToken", accessToken);
+        // Note: refreshToken should ideally be set as an HttpOnly cookie on the server side.
+
+        // Automatically include the Authorization header for future requests
+        axiosInstance.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
+
+        setSuccessMessage("Login successful!"); // Set success message
+        setTimeout(() => setSuccessMessage(""), 5000); // Remove success message after 5 seconds
+
+        console.log("Login response data:", response.data);
+
+        // Redirect to home or dashboard
         setIsLoggedIn(true);
+        navigate("/");
       }
     } catch (error) {
       if (error.response) {
-        // Server responded with a status code other than 2xx
         setErrorMessage(
           error.response.data.message || "An error occurred while logging in"
         );
         console.error("Login failed:", error.response.data);
       } else if (error.request) {
-        // Request was made but no response was received
         setErrorMessage("Failed to communicate with the backend.");
         console.error("No response from server:", error.request);
       } else {
-        // Something happened in setting up the request
         setErrorMessage("An unexpected error occurred.");
         console.error("Error:", error.message);
       }
@@ -67,6 +71,9 @@ const Login = () => {
 
           {/* Displaying error message if any */}
           {errorMessage && <p className="error-message">{errorMessage}</p>}
+
+          {/* Displaying success message if login is successful */}
+          {successMessage && <p className="success-message">{successMessage}</p>}
 
           <form onSubmit={handleLogin}>
             <div className="form-group">

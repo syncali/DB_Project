@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom"; // useNavigate instead of useHistory
-import axios from "axios"; // Importing axios
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 import "../components-css/Register.css";
 
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+console.log(API_BASE_URL);
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -16,7 +17,14 @@ const Register = () => {
 
   const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const navigate = useNavigate(); // useNavigate hook for navigation
+  const [successMessage, setSuccessMessage] = useState(""); // New state for success message
+  const navigate = useNavigate();
+
+  // Configure Axios for reduced timeout
+  const axiosInstance = axios.create({
+    baseURL: API_BASE_URL,
+    timeout: 5000, // Set timeout to 5 seconds
+  });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -30,7 +38,7 @@ const Register = () => {
     e.preventDefault();
 
     if (formData.password !== formData.confirmPassword) {
-      alert("Passwords don't match!");
+      setErrorMessage("Passwords don't match!");
       return;
     }
 
@@ -42,35 +50,32 @@ const Register = () => {
       password: formData.password,
     };
 
-    console.log(requestBody.password);
-
     try {
-      // Using axios to send POST request
-      const response = await axios.post(
-        `${API_BASE_URL}/api/auth/register`,
+      // Send POST request using axios
+      const response = await axiosInstance.post(
+        `/api/auth/register`,
         requestBody
       );
 
       if (response.status === 201) {
-        alert("Registration successful!");
-        console.log(response.data);
-        navigate("/login"); // Redirect to login page after successful registration
+        setSuccessMessage("Registration successful!"); // Show success message
+        setErrorMessage(""); // Clear error message if any
+        setTimeout(() => {
+          navigate("/login");
+        }, 2000); // Redirect after 2 seconds
       }
     } catch (error) {
       if (error.response) {
-        // Request made and server responded with a status code
         setErrorMessage(
-          error.response.data.message || "An error occurred while registering"
+          error.response.data.message || "An error occurred while registering."
         );
-        console.error("Registration failed:", error.response.data);
+        setSuccessMessage(""); // Clear success message if error occurs
       } else if (error.request) {
-        // The request was made but no response was received
         setErrorMessage("Failed to communicate with the backend.");
-        console.error("No response from server:", error.request);
+        setSuccessMessage(""); // Clear success message if error occurs
       } else {
-        // Something happened in setting up the request
         setErrorMessage("An unexpected error occurred.");
-        console.error("Error:", error.message);
+        setSuccessMessage(""); // Clear success message if error occurs
       }
     }
   };
@@ -84,8 +89,12 @@ const Register = () => {
             <p className="subtitle">Join our community today</p>
           </div>
 
-          {/* Displaying error message if any */}
-          {errorMessage && <p className="error-message">{errorMessage}</p>}
+          {/* Display error message */}
+          {errorMessage && <div className="error-message">{errorMessage}</div>}
+          {/* Display success message */}
+          {successMessage && (
+            <div className="success-message">{successMessage}</div>
+          )}
 
           <form onSubmit={handleSubmit}>
             <div className="form-row">

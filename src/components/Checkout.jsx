@@ -12,7 +12,6 @@ import {
 import ReactConfetti from "react-confetti";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
-import { orderService } from '../services/orderService';
 
 const Checkout = () => {
   const [activeStep, setActiveStep] = useState(0);
@@ -21,8 +20,6 @@ const Checkout = () => {
   const [showConfetti, setShowConfetti] = useState(false);
   const navigate = useNavigate();
   const { clearCart } = useCart();
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState(null);
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -169,22 +166,13 @@ const Checkout = () => {
     setActiveStep((prev) => prev + 1);
   };
 
-  const handlePlaceOrder = async () => {
-    try {
-      setIsSubmitting(true);
-      // Create shipping address first if needed
-      await orderService.placeOrder(formData.shippingAddressId);
-      setOrderSuccess(true);
-      setShowConfetti(true);
-      clearCart();
-      setTimeout(() => {
-        navigate("/");
-      }, 3000);
-    } catch (error) {
-      setError(error.message);
-    } finally {
-      setIsSubmitting(false);
-    }
+  const handlePlaceOrder = () => {
+    setOrderSuccess(true);
+    setShowConfetti(true);
+    clearCart(); // Clear cart after successful order
+    setTimeout(() => {
+      navigate("/");
+    }, 3000);
   };
 
   const handlePaymentMethodChange = (event) => {
@@ -321,7 +309,7 @@ const Checkout = () => {
                 Back
               </button>
             )}
-            <button className="next-btn" onClick={handleNext} disabled={isSubmitting}>
+            <button className="next-btn" onClick={handleNext}>
               {activeStep === steps.length - 1 ? "Place Order" : "Continue"}
             </button>
           </div>
