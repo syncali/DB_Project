@@ -1,6 +1,6 @@
 # Wish Tech E-commerce Frontend
 
-![Wish Tech Banner](https://i.imgur.com/3H5CZ7A.png)
+![Wish Tech Banner](https://i.imgur.com/TBzfjfJ.png)
 
 [![React Version](https://img.shields.io/badge/React-18.3.1-blue.svg?style=flat-square&logo=react)](https://reactjs.org/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg?style=flat-square)](./LICENSE)
@@ -56,7 +56,7 @@ A modern, responsive e-commerce platform built with React, offering a seamless s
 
 ### Shopping Cart
 
-![Shopping Cart](https://i.imgur.com/x7OXLoY.png)
+![Shopping Cart](https://i.imgur.com/MnQOElP.png)
 
 ### Admin Dashboard
 
