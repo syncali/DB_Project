@@ -22,6 +22,7 @@ import OrderDetailsC from "./OrderDetails-Customer";
 import Checkout from "./Checkout";
 import { WishlistProvider } from '../context/WishListContext';
 import SearchResults from "./SearchResults";
+import ProductReview from "./ProductReview";
 
 const router = createBrowserRouter([
   {
@@ -79,6 +80,10 @@ const router = createBrowserRouter([
       {
         path: "/search",
         element: <SearchResults />,
+      },
+      {
+        path: "/review/:productId",
+        element: <ProductReview />,
       },
     ],
   },

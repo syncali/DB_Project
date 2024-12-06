@@ -285,4 +285,40 @@ const OrderDetails = () => {
   );
 };
 
+
+// import { orderService } from '../../services/orderService';
+
+// const OrderDetailsAdmin = () => {
+//   const [orders, setOrders] = useState([]);
+//   const [loading, setLoading] = useState(true);
+//   const [error, setError] = useState(null);
+
+//   useEffect(() => {
+//     const fetchOrders = async () => {
+//       try {
+//         setLoading(true);
+//         const data = await orderService.getAllOrders();
+//         setOrders(data);
+//       } catch (err) {
+//         setError(err.message);
+//       } finally {
+//         setLoading(false);
+//       }
+//     };
+
+//     fetchOrders();
+//   }, []);
+
+//   const handleStatusUpdate = async (orderId, newStatus) => {
+//     try {
+//       await orderService.updateOrderStatus(orderId, newStatus);
+//       // Refresh orders
+//       const updatedOrders = await orderService.getAllOrders();
+//       setOrders(updatedOrders);
+//     } catch (err) {
+//       setError(err.message);
+//     }
+//   };
+// };
+
 export default OrderDetails;

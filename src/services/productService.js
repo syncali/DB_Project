@@ -1,4 +1,5 @@
-import axios from "axios";
+import axios from 'axios';
+import { parseProductDescription } from '../utils/productParser';
 
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
@@ -11,20 +12,26 @@ axios.interceptors.request.use((config) => {
   return config;
 });
 
+const transformProductResponse = (product) => {
+  const parsedDesc = parseProductDescription(product.product_desc);
+  
+  return {
+    id: product.product_id,
+    name: product.product_name,
+    price: product.product_price,
+    stock: product.stock_quantity,
+    category_id: product.category_id,
+    ...parsedDesc,
+    images: product.images || []
+  };
+};
+
 export const productService = {
   // Get all products with optional filters
   getAllProducts: async (params = {}) => {
     try {
-      const { category_id, min_price, max_price, availability } = params;
-      const response = await axios.get(`${API_BASE_URL}/api/products`, {
-        params: {
-          category_id,
-          min_price,
-          max_price,
-          availability
-        }
-      });
-      return response.data;
+      const response = await axios.get(`${API_BASE_URL}/api/products`, { params });
+      return response.data.map(transformProductResponse);
     } catch (error) {
       throw new Error(error.response?.data?.message || "Failed to fetch products");
     }
@@ -33,11 +40,14 @@ export const productService = {
   // Get single product with images
   getProductById: async (productId) => {
     try {
-      const response = await axios.get(`${API_BASE_URL}/api/products/${productId}`);
-      const imagesResponse = await axios.get(`${API_BASE_URL}/api/products/${productId}/images`);
+      const [productRes, imagesRes] = await Promise.all([
+        axios.get(`${API_BASE_URL}/api/products/${productId}`),
+        axios.get(`${API_BASE_URL}/api/products/${productId}/images`)
+      ]);
+      
       return {
-        ...response.data,
-        images: imagesResponse.data
+        ...transformProductResponse(productRes.data),
+        images: imagesRes.data
       };
     } catch (error) {
       throw new Error(error.response?.data?.message || "Failed to fetch product");

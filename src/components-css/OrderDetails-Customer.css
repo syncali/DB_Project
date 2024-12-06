@@ -362,6 +362,22 @@
   line-height: 1.5;
 }
 
+.customer-orders__item-actions {
+  margin-top: 0.5rem;
+}
+
+.customer-orders__review-btn {
+  color: #1e3c72 !important;
+  border-color: #1e3c72 !important;
+}
+
+.customer-orders__review-btn.reviewed {
+  background-color: #f8f9fa !important;
+  color: #666 !important;
+  border-color: #e0e0e0 !important;
+  cursor: not-allowed;
+}
+
 @media (max-width: 600px) {
   .order-history-page {
     padding: 1.5rem;

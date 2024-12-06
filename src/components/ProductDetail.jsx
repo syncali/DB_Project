@@ -9,6 +9,7 @@ import { productService } from "../services/productService";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite'; // Add filled heart icon
 import { useWishlist } from "./../context/WishListContext";
+import { CircularProgress, Alert } from '@mui/material';
 
 import i11 from "./../images/product-images/product1-image/22-czone.com.pk-1540-15686-010224084552.jpg";
 import i12 from "./../images/product-images/product1-image/23-czone.com.pk-1540-15686-010224084552.jpg";
@@ -228,9 +229,29 @@ const ProductDetail = () => {
     fetchProductDetails();
   }, [id]);
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div className="error-message">{error}</div>;
-  if (!product) return <div>Product not found</div>;
+  if (loading) {
+    return (
+      <div className="loading-container">
+        <CircularProgress />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <Alert severity="error" className="error-alert">
+        {error}
+      </Alert>
+    );
+  }
+
+  if (!product) {
+    return (
+      <Alert severity="info">
+        Product not found
+      </Alert>
+    );
+  }
 
   const reviews = [
     {

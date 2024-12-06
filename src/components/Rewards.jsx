@@ -18,7 +18,8 @@ const rewardItems = [
     id: 1,
     name: "Premium Gaming Mouse",
     points: 5000,
-    image: "https://www.czone.com.pk/Images/Thumbnails/39-czone.com.pk-1540-11261-160321092931.jpg",
+    image:
+      "https://www.czone.com.pk/Images/Thumbnails/39-czone.com.pk-1540-11261-160321092931.jpg",
     description: "High-performance gaming mouse with RGB lighting",
   },
   {
@@ -41,68 +42,59 @@ const rewardItems = [
 
 const Rewards = () => {
   const [redeemingId, setRedeemingId] = useState(null);
-  const [points, setPoints] = useState(10000); // Initial points
   const [notification, setNotification] = useState({
     show: false,
     message: "",
-    type: "success"
+    type: "success",
   });
+  const [points, setPoints] = useState(10000); // Demo points
 
-  const handleRedeem = async (itemId) => {
-    const item = rewardItems.find(reward => reward.id === itemId);
-    if (!item) return;
-
+  const handleRedeem = async (item) => {
     if (points < item.points) {
       setNotification({
         show: true,
-        message: "Not enough points to redeem this reward",
-        type: "error"
+        message: "Not enough points!",
+        type: "error",
       });
       return;
     }
 
-    setRedeemingId(itemId);
+    setRedeemingId(item.id);
 
     try {
       // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      
-      // Deduct points
-      setPoints(prevPoints => prevPoints - item.points);
-      
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+
+      setPoints((prev) => prev - item.points);
       setNotification({
         show: true,
         message: `Successfully redeemed ${item.name}!`,
-        type: "success"
+        type: "success",
       });
     } catch (error) {
       setNotification({
         show: true,
-        message: "Failed to redeem reward. Please try again.",
-        type: "error"
+        message: "Failed to redeem item",
+        type: "error",
       });
     } finally {
       setRedeemingId(null);
     }
   };
 
-  const handleCloseNotification = () => {
-    setNotification(prev => ({ ...prev, show: false }));
-  };
-
   return (
     <div className="rewards-container">
       <div className="rewards-header">
-        <Typography variant="h4">Rewards Program</Typography>
+        <h1>Rewards Program</h1>
         <div className="points-display">
-          <StarIcon />
-          <Typography variant="h5">{points.toLocaleString()} Points</Typography>
+          <span className="points-label">Your Points</span>
+          <span className="points-value">{points.toLocaleString()}</span>
         </div>
       </div>
 
       <div className="rewards-grid">
         {rewardItems.map((item) => (
-          <Card key={item.id} className="reward-card">
+          <div key={item.id} className="reward-card">
             <div className="reward-image">
               <img src={item.image} alt={item.name} />
               <div className="points-badge">
@@ -110,36 +102,34 @@ const Rewards = () => {
               </div>
             </div>
             <div className="reward-content">
-              <Typography variant="h6">{item.name}</Typography>
-              <Typography variant="body2">{item.description}</Typography>
-              <Button
-                variant="contained"
-                fullWidth
-                disabled={points < item.points || redeemingId === item.id}
+              <h3>{item.name}</h3>
+              <p>{item.description}</p>
+              <button
+                className={`redeem-btn ${
+                  points < item.points ? "disabled" : ""
+                }`}
                 onClick={() => handleRedeem(item.id)}
+                disabled={points < item.points || redeemingId === item.id}
               >
                 {redeemingId === item.id ? (
-                  <CircularProgress size={24} color="inherit" />
+                  <span className="loading">Redeeming...</span>
                 ) : points < item.points ? (
-                  'Not Enough Points'
+                  "Not Enough Points"
                 ) : (
-                  'Redeem'
+                  "Redeem Reward"
                 )}
-              </Button>
+              </button>
             </div>
-          </Card>
+          </div>
         ))}
       </div>
 
       <Snackbar
         open={notification.show}
         autoHideDuration={3000}
-        onClose={handleCloseNotification}
+        onClose={() => setNotification({ ...notification, show: false })}
       >
-        <Alert 
-          severity={notification.type}
-          onClose={handleCloseNotification}
-        >
+        <Alert severity={notification.type} variant="filled">
           {notification.message}
         </Alert>
       </Snackbar>

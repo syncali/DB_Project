@@ -114,6 +114,48 @@
   animation: adminShake 0.5s ease;
 }
 
+.otp-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  color: #1e3c72;
+}
+
+.timer {
+  font-family: "Ubuntu Mono", monospace;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #2a5298;
+  padding: 0.5rem 1rem;
+  background: rgba(42, 82, 152, 0.1);
+  border-radius: 4px;
+}
+
+.otp-input {
+  text-align: center;
+  letter-spacing: 0.5rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.resend-otp {
+  width: 100%;
+  padding: 0.75rem;
+  margin-top: 1rem;
+  border: 2px solid #1e3c72;
+  background: transparent;
+  color: #1e3c72;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.resend-otp:hover {
+  background: rgba(42, 82, 152, 0.1);
+}
+
 @keyframes adminFadeIn {
   from {
     opacity: 0;
@@ -150,4 +192,8 @@
   .admin-form {
     padding: 1.5rem;
   }
+}
+
+.admin-form-group > label {
+  margin-bottom: 1rem;
 }
