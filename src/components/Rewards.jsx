@@ -18,121 +18,128 @@ const rewardItems = [
     id: 1,
     name: "Premium Gaming Mouse",
     points: 5000,
-    image: "https://example.com/gaming-mouse.jpg",
+    image: "https://www.czone.com.pk/Images/Thumbnails/39-czone.com.pk-1540-11261-160321092931.jpg",
     description: "High-performance gaming mouse with RGB lighting",
   },
   {
     id: 2,
     name: "Mechanical Keyboard",
     points: 8000,
-    image: "https://example.com/keyboard.jpg",
+    image:
+      "https://www.czone.com.pk/Images/Thumbnails/33-czone.com.pk-1540-17107-171024100520.jpg",
     description: "RGB mechanical keyboard with Cherry MX switches",
   },
   {
     id: 3,
     name: "Gaming Headset",
     points: 6000,
-    image: "https://example.com/headset.jpg",
+    image:
+      "https://www.czone.com.pk/Images/Thumbnails/61-czone.com.pk-1540-15730-140224112713.jpg",
     description: "7.1 surround sound gaming headset",
   },
 ];
 
 const Rewards = () => {
   const [redeemingId, setRedeemingId] = useState(null);
+  const [points, setPoints] = useState(10000); // Initial points
   const [notification, setNotification] = useState({
     show: false,
     message: "",
-    type: "success",
+    type: "success"
   });
-  const [points, setPoints] = useState(10000); // Demo points
 
-  const handleRedeem = async (item) => {
+  const handleRedeem = async (itemId) => {
+    const item = rewardItems.find(reward => reward.id === itemId);
+    if (!item) return;
+
     if (points < item.points) {
       setNotification({
         show: true,
-        message: "Not enough points!",
-        type: "error",
+        message: "Not enough points to redeem this reward",
+        type: "error"
       });
       return;
     }
 
-    setRedeemingId(item.id);
+    setRedeemingId(itemId);
 
     try {
       // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-
-      setPoints((prev) => prev - item.points);
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      
+      // Deduct points
+      setPoints(prevPoints => prevPoints - item.points);
+      
       setNotification({
         show: true,
         message: `Successfully redeemed ${item.name}!`,
-        type: "success",
+        type: "success"
       });
     } catch (error) {
       setNotification({
         show: true,
-        message: "Failed to redeem item",
-        type: "error",
+        message: "Failed to redeem reward. Please try again.",
+        type: "error"
       });
     } finally {
       setRedeemingId(null);
     }
   };
 
+  const handleCloseNotification = () => {
+    setNotification(prev => ({ ...prev, show: false }));
+  };
+
   return (
     <div className="rewards-container">
-      <motion.div
-        initial={{ y: -20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        className="points-display"
-      >
-        <StarIcon sx={{ color: "#FFD700", fontSize: 40 }} />
-        <Typography variant="h4">{points.toLocaleString()} Points</Typography>
-      </motion.div>
+      <div className="rewards-header">
+        <Typography variant="h4">Rewards Program</Typography>
+        <div className="points-display">
+          <StarIcon />
+          <Typography variant="h5">{points.toLocaleString()} Points</Typography>
+        </div>
+      </div>
 
       <div className="rewards-grid">
         {rewardItems.map((item) => (
-          <motion.div
-            key={item.id}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            <Card className="reward-card">
-              <img src={item.image} alt={item.name} className="reward-image" />
-              <div className="reward-content">
-                <Typography variant="h6">{item.name}</Typography>
-                <Typography variant="body2" color="textSecondary">
-                  {item.description}
-                </Typography>
-                <div className="points-required">
-                  <StarIcon sx={{ color: "#FFD700" }} />
-                  <Typography>{item.points.toLocaleString()} points</Typography>
-                </div>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  fullWidth
-                  disabled={redeemingId === item.id || points < item.points}
-                  onClick={() => handleRedeem(item)}
-                >
-                  {redeemingId === item.id ? (
-                    <CircularProgress size={24} color="inherit" />
-                  ) : (
-                    "Redeem"
-                  )}
-                </Button>
+          <Card key={item.id} className="reward-card">
+            <div className="reward-image">
+              <img src={item.image} alt={item.name} />
+              <div className="points-badge">
+                {item.points.toLocaleString()} Points
               </div>
-            </Card>
-          </motion.div>
+            </div>
+            <div className="reward-content">
+              <Typography variant="h6">{item.name}</Typography>
+              <Typography variant="body2">{item.description}</Typography>
+              <Button
+                variant="contained"
+                fullWidth
+                disabled={points < item.points || redeemingId === item.id}
+                onClick={() => handleRedeem(item.id)}
+              >
+                {redeemingId === item.id ? (
+                  <CircularProgress size={24} color="inherit" />
+                ) : points < item.points ? (
+                  'Not Enough Points'
+                ) : (
+                  'Redeem'
+                )}
+              </Button>
+            </div>
+          </Card>
         ))}
       </div>
 
       <Snackbar
         open={notification.show}
         autoHideDuration={3000}
-        onClose={() => setNotification({ ...notification, show: false })}
+        onClose={handleCloseNotification}
       >
-        <Alert severity={notification.type} variant="filled">
+        <Alert 
+          severity={notification.type}
+          onClose={handleCloseNotification}
+        >
           {notification.message}
         </Alert>
       </Snackbar>

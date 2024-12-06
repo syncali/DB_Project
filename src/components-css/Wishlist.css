@@ -92,6 +92,12 @@
   font-size: 0.9rem !important;
   line-height: 1.5 !important;
   flex: 1;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .item-price {

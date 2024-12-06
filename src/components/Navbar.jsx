@@ -10,7 +10,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import "./../components-css/Navbar.css";
 import { useCart } from "../context/CartContext";
 import { useAuth } from "../context/AuthContext";
-import { productService } from '../services/productService';
+import { productService } from "../services/productService";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -19,7 +19,7 @@ const Navbar = () => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const dropdownRef = useRef(null);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [searchError, setSearchError] = useState(null);
 
@@ -57,12 +57,12 @@ const Navbar = () => {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    
+
     if (!searchTerm.trim()) return;
 
     // Navigate to search results
     navigate(`/search?q=${encodeURIComponent(searchTerm.trim())}`);
-    setSearchTerm(''); // Clear input after search
+    setSearchTerm(""); // Clear input after search
   };
 
   const stringToColor = (string) => {
@@ -266,7 +266,7 @@ const Navbar = () => {
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
-            <button className="btn btn-dark" type="submit">
+            <button className="btn btn-dark me-5" type="submit">
               <i className="fas fa-search"></i>
             </button>
           </form>
