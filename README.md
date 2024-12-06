@@ -53,6 +53,7 @@ A modern, responsive e-commerce platform built with React, offering a seamless s
 ### Product Listing
 
 ![Product Listing](https://i.imgur.com/vq1EooB.png)
+
 ### Shopping Cart
 
 ![Shopping Cart](https://i.imgur.com/x7OXLoY.png)
@@ -187,7 +188,7 @@ Contributions are welcome! Please follow these steps:
 2. **Clone your fork**
 
    ```bash
-   git clone https://github.com/yourusername/ecommerce-frontend.git
+   git clone https://github.com/syncali/DB_Project/ecommerce-frontend.git
    ```
 
 3. **Create a branch**
