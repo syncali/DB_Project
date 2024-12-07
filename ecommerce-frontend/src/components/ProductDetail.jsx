@@ -6,10 +6,10 @@ import Modal from "./Modal";
 import { useCart } from "./../context/CartContext";
 import { useAuth } from "./../context/AuthContext";
 import { productService } from "../services/productService";
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import FavoriteIcon from '@mui/icons-material/Favorite'; // Add filled heart icon
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useWishlist } from "./../context/WishListContext";
-import { CircularProgress, Alert } from '@mui/material';
+import { CircularProgress, Alert } from "@mui/material";
 
 import i11 from "./../images/product-images/product1-image/22-czone.com.pk-1540-15686-010224084552.jpg";
 import i12 from "./../images/product-images/product1-image/23-czone.com.pk-1540-15686-010224084552.jpg";
@@ -53,7 +53,7 @@ const ProductDetail = () => {
 
   const handlePrevImage = () => {
     if (product?.images) {
-      setActiveImage((prev) => 
+      setActiveImage((prev) =>
         prev > 0 ? prev - 1 : product.images.length - 1
       );
     }
@@ -61,13 +61,12 @@ const ProductDetail = () => {
 
   const handleNextImage = () => {
     if (product?.images) {
-      setActiveImage((prev) => 
+      setActiveImage((prev) =>
         prev < product.images.length - 1 ? prev + 1 : 0
       );
     }
   };
 
-  // Hardcoded featured products details
   const featuredProducts = {
     101: {
       id: 101,
@@ -207,14 +206,12 @@ const ProductDetail = () => {
       setLoading(true);
       setError(null);
 
-      // Check if it's a featured product (ID 101-105)
       if (parseInt(id) >= 101 && parseInt(id) <= 105) {
         setProduct(featuredProducts[id]);
         setLoading(false);
         return;
       }
 
-      // Fetch from API for other products (ID 1-50)
       try {
         const productData = await productService.getProductById(id);
         setProduct(productData);
@@ -246,11 +243,7 @@ const ProductDetail = () => {
   }
 
   if (!product) {
-    return (
-      <Alert severity="info">
-        Product not found
-      </Alert>
-    );
+    return <Alert severity="info">Product not found</Alert>;
   }
 
   const reviews = [
@@ -333,7 +326,7 @@ const ProductDetail = () => {
                     style={
                       isZoomed
                         ? {
-                            transform: "scale(1.35)", // Changed from scale(2) to scale(1.5)
+                            transform: "scale(1.35)",
                             transformOrigin: `${mousePosition.x}% ${mousePosition.y}%`,
                           }
                         : {}
@@ -343,10 +336,16 @@ const ProductDetail = () => {
 
                 {product?.images.length > 1 && (
                   <div className="gallery-navigation">
-                    <IconButton onClick={handlePrevImage} className="nav-button">
+                    <IconButton
+                      onClick={handlePrevImage}
+                      className="nav-button"
+                    >
                       <ChevronLeftIcon />
                     </IconButton>
-                    <IconButton onClick={handleNextImage} className="nav-button">
+                    <IconButton
+                      onClick={handleNextImage}
+                      className="nav-button"
+                    >
                       <ChevronRightIcon />
                     </IconButton>
                   </div>
@@ -356,7 +355,9 @@ const ProductDetail = () => {
                   {product?.images.map((image, index) => (
                     <div
                       key={image.id}
-                      className={`thumbnail ${index === activeImage ? 'active' : ''}`}
+                      className={`thumbnail ${
+                        index === activeImage ? "active" : ""
+                      }`}
                       onClick={() => setActiveImage(index)}
                     >
                       <img src={image.url} alt={image.alt} />
@@ -383,12 +384,17 @@ const ProductDetail = () => {
                 <div className="purchase-section">
                   <div className="price">Rs. {product.price}</div>
                   <div className="action-buttons">
-                    <button className="add-to-cart-btn" onClick={handleAddToCart}>
+                    <button
+                      className="add-to-cart-btn"
+                      onClick={handleAddToCart}
+                    >
                       <span>Add to Cart</span>
                       <AddShoppingCartRoundedIcon />
                     </button>
-                    <button 
-                      className={`wishlist-btn ${isInWishlist(product?.id) ? 'wishlisted' : ''}`}
+                    <button
+                      className={`wishlist-btn ${
+                        isInWishlist(product?.id) ? "wishlisted" : ""
+                      }`}
                       onClick={() => {
                         if (isLoggedIn) {
                           if (isInWishlist(product?.id)) {
@@ -401,7 +407,11 @@ const ProductDetail = () => {
                         }
                       }}
                     >
-                      <span>{isInWishlist(product?.id) ? 'Wishlisted' : 'Add to Wishlist'}</span>
+                      <span>
+                        {isInWishlist(product?.id)
+                          ? "Wishlisted"
+                          : "Add to Wishlist"}
+                      </span>
                       {isInWishlist(product?.id) ? (
                         <FavoriteIcon className="wishlisted" />
                       ) : (

@@ -93,7 +93,7 @@ const OrderDetails = () => {
     navigate(`/review/${item.id}`, {
       state: {
         productName: item.name,
-        productImage: item.images?.[0]?.url || item.image, // Handle both image formats
+        productImage: item.images?.[0]?.url || item.image,
         orderId,
         orderDate,
       },

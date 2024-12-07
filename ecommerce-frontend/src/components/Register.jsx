@@ -17,13 +17,12 @@ const Register = () => {
 
   const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const [successMessage, setSuccessMessage] = useState(""); // New state for success message
+  const [successMessage, setSuccessMessage] = useState("");
   const navigate = useNavigate();
 
-  // Configure Axios for reduced timeout
   const axiosInstance = axios.create({
     baseURL: API_BASE_URL,
-    timeout: 5000, // Set timeout to 5 seconds
+    timeout: 5000,
   });
 
   const handleChange = (e) => {
@@ -51,31 +50,30 @@ const Register = () => {
     };
 
     try {
-      // Send POST request using axios
       const response = await axiosInstance.post(
         `/api/auth/register`,
         requestBody
       );
 
       if (response.status === 201) {
-        setSuccessMessage("Registration successful!"); // Show success message
-        setErrorMessage(""); // Clear error message if any
+        setSuccessMessage("Registration successful!");
+        setErrorMessage("");
         setTimeout(() => {
           navigate("/login");
-        }, 2000); // Redirect after 2 seconds
+        }, 2000);
       }
     } catch (error) {
       if (error.response) {
         setErrorMessage(
           error.response.data.message || "An error occurred while registering."
         );
-        setSuccessMessage(""); // Clear success message if error occurs
+        setSuccessMessage("");
       } else if (error.request) {
         setErrorMessage("Failed to communicate with the backend.");
-        setSuccessMessage(""); // Clear success message if error occurs
+        setSuccessMessage("");
       } else {
         setErrorMessage("An unexpected error occurred.");
-        setSuccessMessage(""); // Clear success message if error occurs
+        setSuccessMessage("");
       }
     }
   };

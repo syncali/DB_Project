@@ -32,7 +32,7 @@ const Checkout = () => {
     cardNumber: "",
     expiryDate: "",
     cvv: "",
-    paymentMethod: "card", // Default payment method
+    paymentMethod: "card",
   });
 
   const [errors, setErrors] = useState({});
@@ -131,7 +131,6 @@ const Checkout = () => {
       return;
     }
 
-    // For shipping step
     if (activeStep === 0) {
       const shippingFields = [
         "firstName",
@@ -149,7 +148,6 @@ const Checkout = () => {
       }
     }
 
-    // For payment step
     if (activeStep === 1) {
       if (formData.paymentMethod === "card") {
         const paymentFields = ["cardNumber", "expiryDate", "cvv"];
@@ -159,17 +157,15 @@ const Checkout = () => {
           return;
         }
       }
-      // If COD, skip card validation
     }
 
-    // If validation passes, move to next step
     setActiveStep((prev) => prev + 1);
   };
 
   const handlePlaceOrder = () => {
     setOrderSuccess(true);
     setShowConfetti(true);
-    clearCart(); // Clear cart after successful order
+    clearCart();
     setTimeout(() => {
       navigate("/");
     }, 3000);

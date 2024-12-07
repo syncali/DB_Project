@@ -23,8 +23,7 @@ const AdminLogin = () => {
         credentials.email === "admin@wishtech.com" &&
         credentials.password === "admin123"
       ) {
-        // Simulate server response to indicate successful login
-        setIsOtpState(true); // Switch to OTP state
+        setIsOtpState(true);
       } else {
         setError("Invalid credentials");
       }
@@ -42,7 +41,6 @@ const AdminLogin = () => {
 
     try {
       if (otp === "123456") {
-        // Replace with actual OTP validation
         await adminLogin();
         navigate("/admin/dashboard");
       } else {
