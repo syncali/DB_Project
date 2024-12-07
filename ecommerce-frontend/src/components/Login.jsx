@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import axiosInstance from "../utils/axiosInstance";
+import { Link, useNavigate } from "react-router-dom"; // useNavigate for navigation
+import axiosInstance from "../utils/axiosInstance"; // Using Axios instance
 import "../components-css/Login.css";
 import { useAuth } from "./../context/AuthContext";
 
@@ -10,7 +10,7 @@ const Login = () => {
   const { setIsLoggedIn } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const [successMessage, setSuccessMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState(""); // New state for success message
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -22,22 +22,25 @@ const Login = () => {
     };
 
     try {
+      // Sending POST request to the backend
       const response = await axiosInstance.post(`/api/auth/login`, requestBody);
 
       if (response.status === 200) {
         const { accessToken, refreshToken } = response.data;
 
+        // Store tokens securely
         localStorage.setItem("accessToken", accessToken);
+        // Note: refreshToken should ideally be set as an HttpOnly cookie on the server side.
 
-        axiosInstance.defaults.headers.common[
-          "Authorization"
-        ] = `Bearer ${accessToken}`;
+        // Automatically include the Authorization header for future requests
+        axiosInstance.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
 
-        setSuccessMessage("Login successful!");
-        setTimeout(() => setSuccessMessage(""), 5000);
+        setSuccessMessage("Login successful!"); // Set success message
+        setTimeout(() => setSuccessMessage(""), 5000); // Remove success message after 5 seconds
 
         console.log("Login response data:", response.data);
 
+        // Redirect to home or dashboard
         setIsLoggedIn(true);
         navigate("/");
       }
@@ -70,9 +73,7 @@ const Login = () => {
           {errorMessage && <p className="error-message">{errorMessage}</p>}
 
           {/* Displaying success message if login is successful */}
-          {successMessage && (
-            <p className="success-message">{successMessage}</p>
-          )}
+          {successMessage && <p className="success-message">{successMessage}</p>}
 
           <form onSubmit={handleLogin}>
             <div className="form-group">

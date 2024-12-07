@@ -1,17 +1,18 @@
-import axios from "axios";
+import axios from 'axios';
 
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 const getAuthHeaders = () => {
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem('token');
   return {
     headers: {
-      Authorization: `Bearer ${token}`,
-    },
+      'Authorization': `Bearer ${token}`
+    }
   };
 };
 
 export const orderService = {
+  // Place new order
   placeOrder: async (shippingAddressId) => {
     try {
       const response = await axios.post(
@@ -25,6 +26,7 @@ export const orderService = {
     }
   },
 
+  // Update order status (admin)
   updateOrderStatus: async (orderId, status) => {
     try {
       const response = await axios.put(
@@ -34,12 +36,11 @@ export const orderService = {
       );
       return response.data;
     } catch (error) {
-      throw new Error(
-        error.response?.data?.message || "Failed to update order status"
-      );
+      throw new Error(error.response?.data?.message || "Failed to update order status");
     }
   },
 
+  // Cancel order
   cancelOrder: async (orderId) => {
     try {
       const response = await axios.put(
@@ -49,12 +50,11 @@ export const orderService = {
       );
       return response.data;
     } catch (error) {
-      throw new Error(
-        error.response?.data?.message || "Failed to cancel order"
-      );
+      throw new Error(error.response?.data?.message || "Failed to cancel order");
     }
   },
 
+  // Get all orders (admin)
   getAllOrders: async () => {
     try {
       const response = await axios.get(
@@ -63,12 +63,11 @@ export const orderService = {
       );
       return response.data;
     } catch (error) {
-      throw new Error(
-        error.response?.data?.message || "Failed to fetch all orders"
-      );
+      throw new Error(error.response?.data?.message || "Failed to fetch all orders");
     }
   },
 
+  // Get user's orders
   getMyOrders: async () => {
     try {
       const response = await axios.get(
@@ -77,9 +76,7 @@ export const orderService = {
       );
       return response.data;
     } catch (error) {
-      throw new Error(
-        error.response?.data?.message || "Failed to fetch your orders"
-      );
+      throw new Error(error.response?.data?.message || "Failed to fetch your orders");
     }
-  },
+  }
 };

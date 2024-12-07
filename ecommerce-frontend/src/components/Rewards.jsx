@@ -47,7 +47,7 @@ const Rewards = () => {
     message: "",
     type: "success",
   });
-  const [points, setPoints] = useState(10000);
+  const [points, setPoints] = useState(10000); // Demo points
 
   const handleRedeem = async (item) => {
     if (points < item.points) {
@@ -62,6 +62,7 @@ const Rewards = () => {
     setRedeemingId(item.id);
 
     try {
+      // Simulate API call
       await new Promise((resolve) => setTimeout(resolve, 1500));
 
       setPoints((prev) => prev - item.points);

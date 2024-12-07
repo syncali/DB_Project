@@ -60,8 +60,9 @@ const Navbar = () => {
 
     if (!searchTerm.trim()) return;
 
+    // Navigate to search results
     navigate(`/search?q=${encodeURIComponent(searchTerm.trim())}`);
-    setSearchTerm("");
+    setSearchTerm(""); // Clear input after search
   };
 
   const stringToColor = (string) => {

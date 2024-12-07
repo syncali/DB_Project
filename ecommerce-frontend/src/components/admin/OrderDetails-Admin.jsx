@@ -1,3 +1,4 @@
+// src/components/admin/OrderDetails-Admin.jsx
 import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import {
@@ -76,6 +77,7 @@ const OrderDetails = () => {
   const handleStatusChange = async (newStatus) => {
     setLoading(true);
     try {
+      // API call would go here
       await new Promise((resolve) => setTimeout(resolve, 1000));
       setOrder((prev) => ({
         ...prev,
@@ -175,41 +177,41 @@ const OrderDetails = () => {
               <Table>
                 <TableHead>
                   <TableRow>
-                    <TableCell
-                      sx={{
-                        color: "rgba(255, 255, 255, 0.9)",
-                        backgroundColor: "rgba(255, 255, 255, 0.05)",
-                        fontWeight: 600,
+                    <TableCell 
+                      sx={{ 
+                        color: 'rgba(255, 255, 255, 0.9)',
+                        backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                        fontWeight: 600
                       }}
                     >
                       Item
                     </TableCell>
-                    <TableCell
+                    <TableCell 
                       align="right"
-                      sx={{
-                        color: "rgba(255, 255, 255, 0.9)",
-                        backgroundColor: "rgba(255, 255, 255, 0.05)",
-                        fontWeight: 600,
+                      sx={{ 
+                        color: 'rgba(255, 255, 255, 0.9)',
+                        backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                        fontWeight: 600
                       }}
                     >
                       Price (Rs.)
                     </TableCell>
-                    <TableCell
+                    <TableCell 
                       align="right"
-                      sx={{
-                        color: "rgba(255, 255, 255, 0.9)",
-                        backgroundColor: "rgba(255, 255, 255, 0.05)",
-                        fontWeight: 600,
+                      sx={{ 
+                        color: 'rgba(255, 255, 255, 0.9)',
+                        backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                        fontWeight: 600
                       }}
                     >
                       Quantity
                     </TableCell>
-                    <TableCell
+                    <TableCell 
                       align="right"
-                      sx={{
-                        color: "rgba(255, 255, 255, 0.9)",
-                        backgroundColor: "rgba(255, 255, 255, 0.05)",
-                        fontWeight: 600,
+                      sx={{ 
+                        color: 'rgba(255, 255, 255, 0.9)',
+                        backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                        fontWeight: 600
                       }}
                     >
                       Total
@@ -218,36 +220,34 @@ const OrderDetails = () => {
                 </TableHead>
                 <TableBody>
                   {order.items.map((item) => (
-                    <TableRow
+                    <TableRow 
                       key={item.id}
                       sx={{
-                        "&:hover": {
-                          backgroundColor: "rgba(255, 255, 255, 0.03)",
-                        },
+                        '&:hover': {
+                          backgroundColor: 'rgba(255, 255, 255, 0.03)'
+                        }
                       }}
                     >
-                      <TableCell sx={{ color: "rgba(255, 255, 255, 0.8)" }}>
+                      <TableCell sx={{ color: 'rgba(255, 255, 255, 0.8)' }}>
                         {item.name}
                       </TableCell>
-                      <TableCell
+                      <TableCell 
                         align="right"
-                        sx={{ color: "rgba(255, 255, 255, 0.8)" }}
+                        sx={{ color: 'rgba(255, 255, 255, 0.8)' }}
                       >
                         {item.price}
                       </TableCell>
-                      <TableCell
+                      <TableCell 
                         align="right"
-                        sx={{ color: "rgba(255, 255, 255, 0.8)" }}
+                        sx={{ color: 'rgba(255, 255, 255, 0.8)' }}
                       >
                         {item.quantity}
                       </TableCell>
-                      <TableCell
+                      <TableCell 
                         align="right"
-                        sx={{ color: "rgba(255, 255, 255, 0.8)" }}
+                        sx={{ color: 'rgba(255, 255, 255, 0.8)' }}
                       >
-                        {(
-                          parseInt(item.price.replace(/,/g, "")) * item.quantity
-                        ).toLocaleString()}
+                        {(parseInt(item.price.replace(/,/g, '')) * item.quantity).toLocaleString()}
                       </TableCell>
                     </TableRow>
                   ))}

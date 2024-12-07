@@ -9,7 +9,7 @@ export const adminAuthService = {
         email,
         password,
       });
-      return response.data;
+      return response.data; // Includes token or OTP required flag
     } catch (error) {
       throw new Error(
         error.response?.data?.message || "Invalid email or password"
@@ -23,7 +23,7 @@ export const adminAuthService = {
         `${API_BASE_URL}/api/admin/verify-otp`,
         { email, otp }
       );
-      localStorage.setItem("adminToken", response.data.token);
+      localStorage.setItem("adminToken", response.data.token); // Store token
       return response.data;
     } catch (error) {
       throw new Error(error.response?.data?.message || "Invalid OTP");

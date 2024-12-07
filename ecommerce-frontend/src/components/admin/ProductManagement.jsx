@@ -76,6 +76,7 @@ const ProductManagement = () => {
     if (!csvFile) return;
     setLoading(true);
     try {
+      // CSV processing would go here
       setAlert({
         show: true,
         type: "success",

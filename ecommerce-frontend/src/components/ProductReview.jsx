@@ -30,8 +30,10 @@ const ProductReview = () => {
     setIsSubmitting(true);
 
     try {
+      // API call would go here
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
+      // Update reviewed items in localStorage
       const reviewedItems = JSON.parse(
         localStorage.getItem("reviewedItems") || "[]"
       );
@@ -54,15 +56,14 @@ const ProductReview = () => {
             Write a Review
           </Typography>
           <Typography variant="subtitle1" className="review-page__order-info">
-            Order #{state.orderId} •{" "}
-            {new Date(state.orderDate).toLocaleDateString()}
+            Order #{state.orderId} • {new Date(state.orderDate).toLocaleDateString()}
           </Typography>
         </div>
 
         <div className="review-page__product">
           <div className="review-page__image-container">
             {!imageError && state?.productImage ? (
-              <img
+              <img 
                 src={state.productImage}
                 alt={state.productName}
                 className="review-page__image"
@@ -75,17 +76,13 @@ const ProductReview = () => {
             )}
           </div>
           <Typography variant="h4" className="review-page__product-name">
-            {state?.productName || "Product"}
+            {state?.productName || 'Product'}
           </Typography>
         </div>
 
         <form onSubmit={handleSubmit} className="review-page__form">
           <div className="review-page__rating-section">
-            <Typography
-              variant="h6"
-              component="legend"
-              className="review-page__rating-title"
-            >
+            <Typography variant="h6" component="legend" className="review-page__rating-title">
               Overall Rating
             </Typography>
             <Rating
@@ -120,7 +117,7 @@ const ProductReview = () => {
             disabled={!rating || !review.trim() || isSubmitting}
             className="review-page__submit-btn"
           >
-            {isSubmitting ? "Submitting..." : "Submit Review"}
+            {isSubmitting ? 'Submitting...' : 'Submit Review'}
           </Button>
         </form>
       </Paper>
