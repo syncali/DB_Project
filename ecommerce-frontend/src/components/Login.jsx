@@ -66,10 +66,10 @@ const Login = () => {
             <p className="subtitle">Log in to your account</p>
           </div>
 
-          {}
+          {/* Displaying error message if any */}
           {errorMessage && <p className="error-message">{errorMessage}</p>}
 
-          {}
+          {/* Displaying success message if login is successful */}
           {successMessage && (
             <p className="success-message">{successMessage}</p>
           )}

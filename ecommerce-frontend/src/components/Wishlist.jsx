@@ -1,4 +1,3 @@
-// src/components/Wishlist.jsx
 import React, { useState } from "react";
 import {
   Box,
@@ -45,18 +44,22 @@ const Wishlist = () => {
               <Grid item xs={12} sm={6} md={4} lg={3} key={item.id}>
                 <Paper className="wishlist-item">
                   <div className="item-image-container">
-                    <img 
+                    <img
                       src={item.images?.[0]?.url || item.image}
                       alt={item.name}
                       onError={(e) => {
                         e.target.onerror = null;
-                        e.target.src = 'path/to/fallback/image.jpg';
+                        e.target.src = "path/to/fallback/image.jpg";
                       }}
                     />
                   </div>
                   <div className="item-content">
-                    <Typography variant="h6" className="item-name">{item.name}</Typography>
-                    <Typography variant="body2" className="item-brand">{item.brand}</Typography>
+                    <Typography variant="h6" className="item-name">
+                      {item.name}
+                    </Typography>
+                    <Typography variant="body2" className="item-brand">
+                      {item.brand}
+                    </Typography>
                     <Typography variant="h6" className="item-price">
                       Rs. {item.price}
                     </Typography>
@@ -66,7 +69,11 @@ const Wishlist = () => {
                         className="cart-btn"
                         disabled={loading}
                       >
-                        {loading ? <CircularProgress size={20} /> : <CartIcon />}
+                        {loading ? (
+                          <CircularProgress size={20} />
+                        ) : (
+                          <CartIcon />
+                        )}
                       </IconButton>
                       <IconButton
                         onClick={() => removeFromWishlist(item.id)}

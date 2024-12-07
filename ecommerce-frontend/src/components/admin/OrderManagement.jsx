@@ -45,6 +45,27 @@ const OrderManagement = () => {
     },
   ]);
 
+  //   const [orders, setOrders] = useState([]);
+  //   const [loading, setLoading] = useState(true);
+  //   const [error, setError] = useState(null);
+
+  //   useEffect(() => {
+  //     const fetchOrders = async () => {
+  //       try {
+  //         setLoading(true);
+  //         const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/admin/orders`);
+  //         setOrders(response.data);
+  //       } catch (err) {
+  //         setError('Failed to fetch orders');
+  //         console.error('Error fetching orders:', err);
+  //       } finally {
+  //         setLoading(false);
+  //       }
+  //     };
+
+  //     fetchOrders();
+  //   }, []);
+
   const [statusFilter, setStatusFilter] = useState("all");
   const [sortDirection, setSortDirection] = useState("desc");
   const [page, setPage] = useState(0);

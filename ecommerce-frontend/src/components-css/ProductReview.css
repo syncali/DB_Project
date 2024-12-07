@@ -1,3 +1,4 @@
+/* ProductReview.css */
 .product-review {
   min-height: 100vh;
   padding: 3rem 2rem;
@@ -18,7 +19,7 @@
 
 .product-review__header h4 {
   color: #1e3c72;
-  font-family: "Ubuntu", sans-serif;
+  font-family: 'Ubuntu', sans-serif;
   margin-bottom: 0.5rem;
 }
 
@@ -93,7 +94,7 @@
 
 .review-page__title {
   color: #1e3c72;
-  font-family: "Ubuntu", sans-serif !important;
+  font-family: 'Ubuntu', sans-serif !important;
   font-weight: 600 !important;
   margin-bottom: 0.75rem !important;
 }
@@ -142,7 +143,7 @@
 
 .review-page__product-name {
   color: #2c3e50;
-  font-family: "Ubuntu", sans-serif !important;
+  font-family: 'Ubuntu', sans-serif !important;
   font-weight: 500 !important;
   text-align: center;
 }
@@ -162,7 +163,7 @@
 
 .review-page__rating-title {
   color: #1e3c72;
-  font-family: "Ubuntu", sans-serif !important;
+  font-family: 'Ubuntu', sans-serif !important;
 }
 
 .review-page__rating-stars {
@@ -177,7 +178,7 @@
 
 .review-page__review-title {
   color: #1e3c72;
-  font-family: "Ubuntu", sans-serif !important;
+  font-family: 'Ubuntu', sans-serif !important;
 }
 
 .review-page__review-input {
@@ -208,11 +209,11 @@
   .review-page {
     padding: 2rem 1rem;
   }
-
+  
   .review-page__container {
     padding: 2rem;
   }
-
+  
   .review-page__image-container {
     width: 200px;
     height: 200px;

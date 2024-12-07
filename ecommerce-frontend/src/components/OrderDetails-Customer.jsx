@@ -1,4 +1,3 @@
-// src/components/OrderDetails-Customer.jsx
 import React, { useState } from "react";
 import {
   Box,
@@ -241,5 +240,40 @@ const OrderDetails = () => {
     </div>
   );
 };
+
+// import { orderService } from "../services/orderService";
+
+// const OrderDetails = () => {
+//   const [orders, setOrders] = useState([]);
+//   const [loading, setLoading] = useState(true);
+//   const [error, setError] = useState(null);
+
+//   useEffect(() => {
+//     const fetchOrders = async () => {
+//       try {
+//         setLoading(true);
+//         const data = await orderService.getMyOrders();
+//         setOrders(data);
+//       } catch (err) {
+//         setError(err.message);
+//       } finally {
+//         setLoading(false);
+//       }
+//     };
+
+//     fetchOrders();
+//   }, []);
+
+//   const handleCancelOrder = async (orderId) => {
+//     try {
+//       await orderService.cancelOrder(orderId);
+//       // Refresh orders
+//       const updatedOrders = await orderService.getMyOrders();
+//       setOrders(updatedOrders);
+//     } catch (err) {
+//       setError(err.message);
+//     }
+//   };
+// };
 
 export default OrderDetails;

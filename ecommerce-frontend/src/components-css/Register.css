@@ -15,6 +15,7 @@
   margin: 2rem auto;
 }
 
+/* Error Message Style */
 .error-message {
   color: red;
   background-color: #f8d7da;
@@ -25,6 +26,7 @@
   text-align: center;
 }
 
+/* Success Message Style */
 .success-message {
   color: green;
   background-color: #d4edda;

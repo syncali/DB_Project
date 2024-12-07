@@ -1,3 +1,4 @@
+/* src/components-css/Wishlist.css */
 .wishlist-page {
   min-height: 100vh;
   background: #f8f9fa;
@@ -150,7 +151,7 @@
 .item-image-container {
   position: relative;
   width: 100%;
-  padding-top: 100%;
+  padding-top: 100%; /* 1:1 Aspect Ratio */
   overflow: hidden;
 }
 

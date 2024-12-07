@@ -13,7 +13,7 @@
 
 .rewards-header h1 {
   color: #1e3c72;
-  font-family: "Ubuntu", sans-serif;
+  font-family: 'Ubuntu', sans-serif;
   font-size: 2rem;
   font-weight: 600;
 }
@@ -36,7 +36,7 @@
 .points-value {
   font-size: 1.5rem;
   font-weight: 600;
-  font-family: "Ubuntu", sans-serif;
+  font-family: 'Ubuntu', sans-serif;
 }
 
 .rewards-grid {
@@ -50,7 +50,7 @@
   background: white;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   transition: transform 0.3s ease;
   max-width: 320px;
   margin: 0 auto;
@@ -62,9 +62,9 @@
 
 .reward-image {
   position: relative;
-  padding-top: 56.25%;
+  padding-top: 56.25%; /* 16:9 Aspect Ratio */
   overflow: hidden;
-  height: 200px;
+  height: 200px; /* Fixed height */
 }
 
 .reward-image img {
@@ -73,9 +73,9 @@
   left: 0;
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  background-color: #f8f9fa;
-  padding: 1rem;
+  object-fit: contain; /* Changed from cover to contain */
+  background-color: #f8f9fa; /* Light background for images */
+  padding: 1rem; /* Add padding around images */
 }
 
 .points-badge {
@@ -99,7 +99,7 @@
   font-size: 1.25rem;
   font-weight: 600;
   margin-bottom: 0.75rem;
-  font-family: "Ubuntu", sans-serif;
+  font-family: 'Ubuntu', sans-serif;
 }
 
 .reward-content p {
@@ -138,7 +138,7 @@
 }
 
 .loading::after {
-  content: "";
+  content: '';
   width: 1rem;
   height: 1rem;
   border: 2px solid #fff;
@@ -148,9 +148,7 @@
 }
 
 @keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
+  to { transform: rotate(360deg); }
 }
 
 @media (max-width: 768px) {
@@ -159,7 +157,7 @@
     gap: 1rem;
     text-align: center;
   }
-
+  
   .points-display {
     align-items: center;
     width: 100%;

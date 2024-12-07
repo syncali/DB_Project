@@ -1,3 +1,4 @@
+/* OrderDetails-Admin.css */
 .admin-order-details {
   min-height: 100vh;
   background: linear-gradient(135deg, #1a2942 0%, #131c2e 100%);
@@ -17,15 +18,15 @@
 }
 
 .admin-order-back-btn {
-  color: rgb(255, 255, 255);
-  text-transform: none;
-  padding: 0.5rem 1rem;
+  color: rgb(255, 255, 255) ;
+  text-transform: none ;
+  padding: 0.5rem 1rem ;
 }
 
 .admin-order-title {
-  color: white;
-  font-size: 1.75rem;
-  font-weight: 600;
+  color: white ;
+  font-size: 1.75rem ;
+  font-weight: 600 ;
 }
 
 .admin-order-grid {
@@ -39,7 +40,7 @@
 .admin-order-history-section {
   background: white;
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 12px;
+  border-radius: 12px ;
   padding: 1.5rem;
   backdrop-filter: blur(10px);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
@@ -49,14 +50,14 @@
 .admin-order-info-section:hover,
 .admin-order-items-section-details:hover,
 .admin-order-history-section:hover {
-  background: rgba(255, 255, 255, 1);
+  background: rgba(255, 255, 255, 1) ;
   transform: translateY(-2px);
 }
 
 .admin-order-section-title {
-  color: rgb(0, 0, 0);
-  font-size: 1.25rem;
-  margin-bottom: 1.5rem;
+  color: rgb(0, 0, 0) ;
+  font-size: 1.25rem ;
+  margin-bottom: 1.5rem ;
 }
 
 .admin-order-status-group {
@@ -71,14 +72,14 @@
 }
 
 .admin-order-status-btn {
-  background: linear-gradient(135deg, #1e88e5 0%, #1565c0 100%);
-  color: rgb(0, 0, 0);
-  padding: 0.5rem 1.5rem;
+  background: linear-gradient(135deg, #1e88e5 0%, #1565c0 100%) ;
+  color: rgb(0, 0, 0) ;
+  padding: 0.5rem 1.5rem ;
 }
 
 .admin-order-divider {
-  background-color: rgba(255, 255, 255, 0.1);
-  margin: 1rem 0;
+  background-color: rgba(255, 255, 255, 0.1) ;
+  margin: 1rem 0 ;
 }
 
 .admin-order-table-container-details {
@@ -86,14 +87,14 @@
 }
 
 .admin-order-table-header-details {
-  color: rgba(0, 0, 0, 0.9);
-  font-weight: 600;
-  background: rgba(255, 255, 255, 0.05);
+  color: rgba(0, 0, 0, 0.9) ;
+  font-weight: 600 ;
+  background: rgba(255, 255, 255, 0.05) ;
 }
 
 .MuiTableCell-body {
-  color: rgba(0, 0, 0, 0.8);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  color: rgba(0, 0, 0, 0.8) ;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05) ;
 }
 
 .admin-order-status-timeline {
@@ -122,3 +123,4 @@
     width: 100%;
   }
 }
+

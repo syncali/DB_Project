@@ -74,6 +74,7 @@
   text-align: center;
 }
 
+/* Success Message Style */
 .success-message {
   color: green;
   background-color: #d4edda;

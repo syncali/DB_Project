@@ -87,9 +87,9 @@ const Register = () => {
             <p className="subtitle">Join our community today</p>
           </div>
 
-          {}
+          {/* Display error message */}
           {errorMessage && <div className="error-message">{errorMessage}</div>}
-          {}
+          {/* Display success message */}
           {successMessage && (
             <div className="success-message">{successMessage}</div>
           )}

@@ -10,8 +10,9 @@
   gap: 2rem;
 }
 
+/* In src/components-css/Checkout.css */
 .checkout-main {
-  background: #f8f9fa;
+  background: #f8f9fa; /* Change this to your desired color */
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 2rem;
@@ -243,11 +244,13 @@
   padding: 2rem;
 }
 
+/* Fix label visibility and styling */
 .MuiInputLabel-root {
   color: #1e3c72 !important;
   font-weight: 500 !important;
 }
 
+/* For input fields background */
 .MuiOutlinedInput-root {
   background-color: #ffffff !important;
   border-radius: 8px !important;
@@ -271,11 +274,13 @@
   opacity: 1 !important;
 }
 
+/* Error states */
 .MuiFormHelperText-root.Mui-error {
   color: #d32f2f !important;
   margin-top: 4px !important;
 }
 
+/* Form section headers */
 .checkout-form h2 {
   color: #1e3c72;
   margin-bottom: 1.5rem;
@@ -289,10 +294,12 @@
     "Lucida Sans", Arial, sans-serif !important;
 }
 
+/* In src/components-css/Checkout.css */
 .payment-section {
   margin-right: 2rem;
 }
 
+/* Ensure consistent width for payment inputs */
 .payment-details .MuiTextField-root {
   width: 100%;
 }
