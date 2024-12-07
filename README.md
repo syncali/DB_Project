@@ -1,4 +1,4 @@
-# Wish Tech E-commerce Frontend
+# Wish Tech - E-commerce Site For Computer Parts
 
 ![Wish Tech Banner](https://i.imgur.com/TBzfjfJ.png)
 
