@@ -1,4 +1,4 @@
-# Wish Tech - E-commerce Site For Computer Parts
+# Wish Tech - E-commerce Site For Computer Components
 
 ![Wish Tech Banner](https://i.imgur.com/TBzfjfJ.png)
 
@@ -231,6 +231,9 @@ This project is licensed under the MIT License. See the LICENSE file for details
 - **LinkedIn**: [Ali Wasif - LinkedIn](https://www.linkedin.com/in/ali-wasif/)
 - **GitHub**: [https://github.com/syncali](https://github.com/syncali)
 
+- **Author**: Shahzaib Ahmed
+- **GitHub**: [https://github.com/Shahzaib3769](https://github.com/Shahzaib3769)
+
 ---
 
 ## Acknowledgements
@@ -243,4 +246,4 @@ This project is licensed under the MIT License. See the LICENSE file for details
 
 ---
 
-_This README was generated with ❤️ by [Ali Wasif](https://github.com/syncali)._
+_This README was prepared with ❤️ by [Ali Wasif](https://github.com/syncali)._
